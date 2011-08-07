@@ -1,6 +1,7 @@
 *.sass-cache
 .virtualenv
-frontend/static/styles/*.css
-frontend/settings/gondor.py
-frontend/settings/development.py
+static/styles/*.css
+static/scripts/jquery-1.6.2.js
+settings/gondor.py
+settings/development.py
 .gondor
