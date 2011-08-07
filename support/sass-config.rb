@@ -2,10 +2,10 @@
 
 # Set this to the root of your project when deployed:
 http_path = "/"
-css_dir = "frontend/static/styles"
+css_dir = "static/styles"
 sass_dir = "support/sass"
-images_dir = "frontend/static/images"
-javascripts_dir = "frontend/static/scripts"
+images_dir = "static/images"
+javascripts_dir = "static/scripts"
 
 # You can select your preferred output style here (can be overridden via the command line):
 # output_style = :expanded or :nested or :compact or :compressed

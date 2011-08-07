@@ -161,6 +161,26 @@ CMS_TEMPLATES = (
     ('left-sidebar.html', 'Normal page (left sidebar)'),
 )
 
+CMS_SHOW_END_DATE = True
+CMS_SHOW_START_DATE = True
+CMS_URL_OVERWRITE = True
+CMS_MENU_TITLE_OVERWRITE = True
+CMS_REDIRECTS = True
+CMS_SEO_FIELDS = True
+
+CMS_HIDE_UNTRANSLATED = False
+CMS_LANGUAGE_FALLBACK = True
+
+#CMS_PAGE_MEDIA_PATH = 'assets/cms/'
+#CMS_MEDIA_ROOT = os.path.join(os.path.dirname(cms.__file__), 'media', 'cms') + '/'
+CMS_PERMISSION = True
+CMS_SOFTROOT = True
+CMS_MODERATOR = False
+CMS_CONTENT_CACHE_DURATION = 1
+
+# Django-schedule configuration
+FIRST_DAY_OF_WEEK = 1 # Monday
+
 
 #HAYSTACK_SITECONF = 'adb.frontend.search_sites'
 #HAYSTACK_SEARCH_ENGINE = 'solr'

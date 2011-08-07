@@ -1,3 +1,0 @@
-"""
-UGA specific applications
-"""

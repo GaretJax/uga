@@ -3,10 +3,14 @@
 <head>
 	<meta charset="utf-8" />
 	
+	<title>UGA · {% page_attribute "page_title" %}</title>
+	
 	{% render_block "css" %}
 	
 	{% render_block "js" %}
 	{% addtoblock "css" %}<link rel="stylesheet" href="{{ STATIC_URL }}styles/master.css" />{% endaddtoblock %}
+	{% addtoblock "js" %}<script src="{{ STATIC_URL }}scripts/jquery-1.6.2.js"></script>{% endaddtoblock %}
+	{% addtoblock "js" %}<script src="{{ STATIC_URL }}scripts/master.js"></script>{% endaddtoblock %}
 </head>
 <body>
 	<header>
