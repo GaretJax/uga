@@ -1,2 +1,3 @@
 *.sass-cache
 .virtualenv
+frontend/static/styles/*.css
