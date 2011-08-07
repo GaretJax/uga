@@ -1,6 +1,4 @@
-from .development import *
-
 try:
-    from local_settings import *
+    from .development import *
 except ImportError:
-    pass
+    from .gondor import *
