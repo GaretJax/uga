@@ -3,3 +3,4 @@
 frontend/static/styles/*.css
 frontend/settings/gondor.py
 frontend/settings/development.py
+.gondor
