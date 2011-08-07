@@ -111,7 +111,7 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 #LOGIN_REDIRECT_URL = '/'
 #PERMISSIONS_VIEW = 'adb.frontend.auth.views.permission_required'
 
-ROOT_URLCONF = 'frontend.urls'
+ROOT_URLCONF = 'urls'
 
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_BASE, 'templates'),
