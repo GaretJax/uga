@@ -34,7 +34,7 @@ def _get_current_branch(repository):
 
 
 def _deploy(instance, branch):
-    with lcd(os.path.join(BASE, 'frontend')):
+    with lcd(BASE):
         local('gondor deploy {instance} {branch}'.format(
                 instance=instance, branch=branch))
 
