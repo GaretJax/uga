@@ -12,9 +12,8 @@ body
 	font-family: 'Lucida Grande', Tahoma, Verdana, Arial, sans-serif
 
 header
-	width: 1030px
 	height: 148px
-	margin-right: 20px
+	width: 1030px
 	padding-top: 20px
 	border-left: 1px solid #d9d9d9
 	border-right: 1px solid #d9d9d9
@@ -48,8 +47,13 @@ header
 	margin: -40px 36px 0 0
 	
 	input
-		width: 13em
+		width: 8em
 		font-size: 1.6em
+		+single-transition(width, .3s, ease-out)
+		
+		&:focus
+			width: 15em
+			+single-transition(width, .3s, ease-out)
 		
 
 .primary-navigation
@@ -163,3 +167,6 @@ footer
 .main
 	float: left
 	@import "content-container"
+	
+.fixed
+	@import "fixed"
