@@ -4,6 +4,7 @@ Different tasks to ease the development workflow of the UGA website.
 
 
 import os
+import subprocess
 
 from fabric.api import *
 
@@ -63,3 +64,12 @@ def deploy_prod():
     Deploys the master branch to the production instance.
     """
     _deploy(env.instance_labels['staging'], 'master')
+
+
+
+def rundev():
+    with lcd(BASE):
+        server = subprocess.Popen(['./manage.py', 'runserver'])
+        guard = subprocess.Popen(['Guard'])
+        server.wait()
+        guard.wait()
