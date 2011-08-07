@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% load menu_tags cms_tags %}
+
+{% block content %}
+	<aside class="sidebar">
+		<nav class="secondary-navigation">
+			<ul>
+				{% show_menu 1 100 0 1 %}
+			</ul>
+		</nav>
+		
+		{% placeholder "sidebar-widgets" inherit %}
+	
+		<div class="twitterbox">
+			<p>UGA, Unica. Precisa. Puntuale. Ticinese. <a href="#">#slogan_uga</a></p>
+		</div>
+	</aside>
+
+	<section class="main content">
+		<h1>{% page_attribute "page_title" %}</h1>
+		{% ifnotequal request.current_page.parent_id None  %}
+		{% ifequal request.current_page.get_root.reverse_id index %}
+			<ul class="breadcrumbs">
+				{% show_breadcrumb 1 "breadcrumb.html" %}
+			</ul>
+		{% else %}
+			<ul class="breadcrumbs">
+				{% show_breadcrumb 0 "breadcrumb.html" %}
+			</ul>
+		{% endifequal %}
+		{% endifnotequal %}
+		<hr />
+	
+		<p>L’UGA (Universitari Gaudenti Associati) è una delle due associazioni ticinesi di Friborgo (situazione unica in Svizzera dove normalmente vi è una sola associazione per città).</p>
+		<p>L’associazione si occupa principalmente di organizzare feste, aperitivi, cene e quant’altro, offrendo così ai propri soci, e a tutti gli studenti dell’UniFR, qualcosa da fare in ambito extra-scolastico.  Il nostro obbiettivo è quindi l’aggregazione tra ticinesi (ma non solo) e la loro integrazione nell’ambito universitario, il tutto condito da una buona dose d’allegria e nottate fino a tarda ora.  Non esiste una lista esatta delle attività proposte, dato che ogni semestre è per noi fonte d’innovazione. Cerchiamo sempre di proporre qualcosa di nuovo ai nostri soci, tenendo anche conto delle vecchie attività che più hanno appassionato i nostri associati.</p>
+
+		<p>Ecco alcuni esempi:</p>
+
+		<ul>
+			<li>Feste a tema</li>
+			<li>Aperitivi</li>
+			<li>Grigliate</li>
+			<li>Concerti</li>
+			<li>Weekend in montagna</li>
+			<li>Gite culturali</li>
+			<li>Tornei di calcietto, biliardo, calcio, …</li>
+		</ul>
+	
+		<p>Di tutto un po’ insomma!</p>
+	
+		<h2>UGA e Lepo</h2>
+	
+		<p>Prima che ve lo chiediate, le ragioni per le quali a Friborgo vi sono due associazioni studentesche così simili, sono prettamente storiche. All’inizio degli anni 90’ infatti, un gruppo di giovani studenti, stanchi dell’egemonia lepontina sulle attività studentesche ticinesi (ai tempi la Lepontia riconosciuta per un chiaro indirizzo politico e religioso), decise di scindersi e fondare l’UGA. L’obbiettivo, allora come oggi, doveva essere uno solo, il DIVERTIMENTO.</p>
+		<p>Da allora molte cose sono cambiate, il numero di studenti universitari è cresciuto notevolmente, la Lepontia si è “laicizzata” e l’UGA ha smesso di essere vista esclusivamente come “l’associazione dei festaioli”. Si è quindi arrivati ad una situazione di equivalenza che rende le due associazioni più sorelle che nemiche.  Per esser membri delle due associazioni basta pagare le rispettive tasse annuali. Una volta iscritti avrete diritto a sconti durante le feste, alla possibilità di iscrivervi ad attività riservate ai soci etc.</p>
+
+		<h2>Premio Pregna</h2>
+		<p>L’UGA ogni anno, all’assemblea ordinaria che si svogle a febbraio/marzo, conferisce ad un meritevole Ughino o Ughina il prestigioso Premio Pregna. Questo importante riconoscimento va a colui che più si è distinto, che meglio ha incarnato il nobile spirito della nostra associazione durante l’anno appena trascorso. Fedeltà, presenza di spirito, dedizione e una spiccata attitudine all’alcolemia molesta sono ovviamente titoli preferenziali. Ma ovviamente anche tanta voglia di divertirsi in modo sano e aiutare a far crescere l’UGA in qualcosa di sempre migliore sono i requisiti fondamentali per un Premio Pregna.</p>
+
+		<p>Come si vince? Come ci si iscrive?</p>
+		<p>Risposta molto semplice: non ci si può iscrivere. Il comitato premia lo spirito e la spontaneità dei “candidati”. Impossibile dire chi sarà il vincitore! Potresti essere tu? Chi lo sa…</p>
+	</section>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% load menu_tags cms_tags %}
+
+{% block content %}
+	<aside class="sidebar">
+		<nav class="secondary-navigation">
+			<ul>
+				{% show_menu 1 100 0 1 %}
+			</ul>
+		</nav>
+
+		{% placeholder "sidebar-widgets" inherit %}
+	
+		<div class="twitterbox">
+			<p>UGA, Unica. Precisa. Puntuale. Ticinese. <a href="#">#slogan_uga</a></p>
+		</div>
+	</aside>
+
+	<section class="main content">
+		<h1>Benvenuto Ughino!</h1>
+		
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		
+	</section>
+{% endblock %}
