@@ -65,7 +65,7 @@ STATICFILES_DIRS = (
 )
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(PROJECT_BASE, 'stati2c')
+STATIC_ROOT = os.path.join(PROJECT_BASE, 'collected-static')
 
 # List of callables that know how to import templates from various sources.
 #JINJA2_TEMPLATE_LOADERS = (
