@@ -154,6 +154,7 @@ INSTALLED_APPS = (
     'cms.plugins.twitter',
     
     # UGA Apps
+    'uga.registration'
 )
 
 CMS_TEMPLATES = (
