@@ -5,6 +5,6 @@ class Member(models.Model):
     """
     A single member of the association.
     """
-    email = models.EmailField(blank=False)
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
+    email = models.EmailField(blank=False, unique=True)
+    first_name = models.CharField(max_length=255, blank=True, null=True)
+    last_name = models.CharField(max_length=255, blank=True, null=True)
