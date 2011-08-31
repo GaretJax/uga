@@ -8,7 +8,7 @@ class IncompleteListFilter(admin.SimpleListFilter):
     title = _('completion')
 
     parameter_name = 'status'
-    
+
     def lookups(self, request, model_admin):
         return (
             ('complete', _('Complete')),
@@ -23,7 +23,7 @@ class IncompleteListFilter(admin.SimpleListFilter):
                 query = ~query
 
             queryset = queryset.filter(query)
-        
+
         return queryset
 
 
@@ -32,3 +32,15 @@ class MemberAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'email', 'is_complete')
     list_filter = (IncompleteListFilter,)
 admin.site.register(models.Member, MemberAdmin)
+
+
+
+class SubscriptionYearAdmin(admin.ModelAdmin):
+    pass
+admin.site.register(models.SubscriptionYear, SubscriptionYearAdmin)
+
+
+
+class MembershipAdmin(admin.ModelAdmin):
+    pass
+admin.site.register(models.Membership, MembershipAdmin)
