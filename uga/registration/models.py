@@ -31,10 +31,6 @@ class IncompleteMemberManager(models.Manager):
         return self.filter(~self._get_completion_query())
 
 
-#class Membership(models.Model):
-#    start = models.DateField()
-#    end = models.DateField()
-
 
 class Member(models.Model):
     """
@@ -54,3 +50,16 @@ class Member(models.Model):
         return self.__class__.objects._get_completion_status(self)
     is_complete.boolean = True
 
+
+
+class SubscriptionYear(models.Model):
+    start = models.DateField()
+    end = models.DateField()
+    members = models.ManyToManyField(Member, through='Membership')
+
+
+
+class Membership(models.Model):
+    date_joined = models.DateField()
+    person = models.ForeignKey(Member)
+    year = models.ForeignKey(SubscriptionYear)
