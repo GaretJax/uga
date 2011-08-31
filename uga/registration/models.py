@@ -46,6 +46,10 @@ class Member(models.Model):
     zip_code = models.PositiveSmallIntegerField(blank=True, null=True)
     city = models.CharField(max_length=255, blank=True, null=True)
 
+    def __unicode__(self):
+        return u'{0} {1} <{2}>'.format(self.first_name, self.last_name,
+                self.email)
+
     def is_complete(self):
         return self.__class__.objects._get_completion_status(self)
     is_complete.boolean = True
@@ -57,9 +61,21 @@ class SubscriptionYear(models.Model):
     end = models.DateField()
     members = models.ManyToManyField(Member, through='Membership')
 
+    def __unicode__(self):
+        return u'Anno sociale {0.year}-{1.year}'.format(self.start, self.end)
+
 
 
 class Membership(models.Model):
-    date_joined = models.DateField()
+    date_joined = models.DateField(auto_now_add=True)
     person = models.ForeignKey(Member)
     year = models.ForeignKey(SubscriptionYear)
+
+    def __unicode__(self):
+        return u'Iscrizione di {0!s} a {1!s} (iscritto il {2!s})'.format(
+                self.person, self.year, self.date_joined)
+
+    class Meta:
+        unique_together = (
+            ('person', 'year'),
+        )
