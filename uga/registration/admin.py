@@ -16,12 +16,15 @@ class IncompleteListFilter(admin.SimpleListFilter):
         )
 
     def queryset(self, request, queryset):
-        query = queryset.model.objects._get_completion_query()
+        if self.value():
+            query = queryset.model.objects._get_completion_query()
 
-        if self.value() == 'incomplete':
-            query = ~query
+            if self.value() == 'incomplete':
+                query = ~query
 
-        return queryset.filter(query)
+            queryset = queryset.filter(query)
+        
+        return queryset
 
 
 
