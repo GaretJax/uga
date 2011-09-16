@@ -54,6 +54,11 @@ class Member(models.Model):
         return self.__class__.objects._get_completion_status(self)
     is_complete.boolean = True
 
+    class Meta:
+        permissions = (
+            ("enroll_member", "Can enroll a new member"),
+        )
+
 
 
 class SubscriptionYear(models.Model):

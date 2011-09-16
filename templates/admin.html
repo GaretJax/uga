@@ -1,0 +1,58 @@
+{% load cms_tags menu_tags sekizai_tags %}<!DOCTYPE html>
+<html lang="it">
+<head>
+	<meta charset="utf-8" />
+
+	<title>Amministrazione UGA · {% page_attribute "page_title" %}</title>
+
+	{% render_block "css" %}
+
+	{% render_block "js" %}
+	{% addtoblock "css" %}<link rel="stylesheet" href="{{ STATIC_URL }}styles/master.css" />{% endaddtoblock %}
+	{% addtoblock "js" %}<script src="{{ STATIC_URL }}scripts/jquery-1.6.2.js"></script>{% endaddtoblock %}
+	{% addtoblock "js" %}<script src="{{ STATIC_URL }}scripts/master.js"></script>{% endaddtoblock %}
+</head>
+<body class="wide admin">
+	<header>
+		<h1><a href="{% page_url "index" %}"><img src="{{ STATIC_URL }}images/logo.png" alt="UGA" /></a></h1>
+	</header>
+
+	<nav class="primary-navigation">
+		<ul class="main-menu">
+			{% show_menu 0 0 0 1 %}
+		</ul>
+	</nav>
+
+	<aside class="sidebar">
+		<nav class="secondary-navigation">
+			<ul>
+				{% show_menu 1 100 0 1 %}
+			</ul>
+		</nav>
+
+		{#% placeholder "sidebar-widgets" inherit %#}
+	</aside>
+
+	<section class="main content">
+		<h1>{% if page_title %}{{ page_title}}{% else %}{% page_attribute "page_title" %}{% endif %}</h1>
+		{% ifnotequal request.current_page.parent_id None  %}
+		{% ifequal request.current_page.get_root.reverse_id index %}
+		<ul class="breadcrumbs">
+			{% show_breadcrumb 1 "breadcrumb.html" %}
+		</ul>
+		{% else %}
+		<ul class="breadcrumbs">
+			{% show_breadcrumb 0 "breadcrumb.html" %}
+		</ul>
+		{% endifequal %}
+		{% endifnotequal %}
+		<hr />
+
+		{% block content %}{% placeholder "main-content" %}{% endblock %}
+	</section>
+
+	<footer>
+		<p>© 1993-2011 UGA Freeborgo. Tutti i diritti all'asta. In parole povere, ruba qualcosa da questo sito e tutti ti prenderanno per pazzo.</p>
+	</footer>
+</body>
+</html>
