@@ -163,6 +163,7 @@ INSTALLED_APPS = (
 
 CMS_TEMPLATES = (
     ('index.html', 'Homepage template'),
+    ('admin.html', 'Admin template'),
     ('left-sidebar.html', 'Normal page (left sidebar)'),
 )
 
