@@ -27,7 +27,7 @@ header
 	h1
 		width: 220px
 		text-align: center
-		
+
 	a
 		display: block
 
@@ -43,97 +43,34 @@ footer
 	position: absolute
 	margin: 16px -489px 0 0
 	right: 50%
-	
+
 	input
 		width: 8em
 		font-size: 1.6em
 		+single-transition(width, .3s, ease-out)
-		
+
 		&:focus
 			width: 15em
 			+single-transition(width, .3s, ease-out)
-		
 
 .primary-navigation
-	margin: -4px 20px -5px 220px
-	overflow: auto
-	padding: 20px 0
-	position: absolute
-
-	li
-		float: left
-		
-	a
-		color: #666
-		font-family: "Helvetica Neue"
-		font-weight: lighter
-		text-decoration: none
-		font-size: 1.5em
-		letter-spacing: 1px
-		display: block
-		padding: .5em .7em .6em
-		margin: -.3em .4em
-		text-transform: uppercase
-		+border-radius(6px)
-		border: 1px solid transparent
-		+single-text-shadow(#fff, 0px, 1px, 0px)
-		
-		&:hover
-			border-color: #d6d6d6
-			+single-box-shadow(#ddd, 0, 0, 5px, false, true)
-			background: #eee
-		
-	
-	li + li
-		border-left: 1px solid #ddd
+	@import "navigation"
 
 .sidebar
 	@import "sidebar"
 
-.main
+body > section
 	@import "content-container"
 
-.messages + .main
-	margin-top: 10px
+	&:nth-of-type(1)
+		margin-top: 56px
 
 .content
 	@import "content"
 	@import "forms"
-	
-.messages
-	@import "content-container"
-	margin-bottom: 0
-	padding: .7em 0
-	background-color: rgba(255, 255, 130, .7)
-	overflow: hidden
-	
-	ul
-		+single-box-shadow(rgba(0, 0, 0, .4), 0, 0, 5px, false, true)
-		margin: 0 -2em
-		padding: .2em 2em
-		border-top: 1px solid #fff
-		border-bottom: 1px solid #fff
-		background: rgba(255, 255, 255, .7)
 
-		li
-			margin: 0
-			cursor: default
-			padding: .4em 2em .3em
-			display: block
-			border-bottom: 1px solid #f8f3ca
-			color: #2C261A
-			
-			&:last-child
-				border-bottom: 0
-			
-			& + li
-				border-top: 1px solid #fff
-			
-			&:hover
-				background-color: rgba(255, 255, 0, .1)
-				
-			& + li:hover
-				border-top-color: rgba(255, 255, 255, .8)
+.messages
+	@import "messages"
 
 @import "buttons"
 @import "layouts"
