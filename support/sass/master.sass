@@ -3,6 +3,7 @@
 +global-reset
 +reset-html5
 
+@import "defines"
 
 body
 	background: #E7E7E7
@@ -13,6 +14,7 @@ body
 	font-family: 'Lucida Grande', Tahoma, Verdana, Arial, sans-serif
 
 header
+	position: absolute
 	height: 148px
 	width: 1030px
 	padding-top: 20px
@@ -29,23 +31,18 @@ header
 	a
 		display: block
 
-.twitterbox
-	margin-top: 2em
+footer
+	font-size: 1.1em
+	color: #999
+	clear: both
+	width: 830px
+	padding: 2em 0 2em 220px
 	text-align: center
-	line-height: 1.35em
-	color: #666
-	+text-shadow(#fff, 0px 1px 0px)
-	
-	a
-		color: #6381a3
-		text-decoration: none
-		
-		&:hover
-			text-decoration: underline
 
 .searchbox
-	float: right
-	margin: -40px 36px 0 0
+	position: absolute
+	margin: 16px -489px 0 0
+	right: 50%
 	
 	input
 		width: 8em
@@ -58,9 +55,10 @@ header
 		
 
 .primary-navigation
-	margin: -172px 20px -5px 220px
+	margin: -4px 20px -5px 220px
 	overflow: auto
 	padding: 20px 0
+	position: absolute
 
 	li
 		float: left
@@ -89,135 +87,53 @@ header
 	li + li
 		border-left: 1px solid #ddd
 
-.secondary-navigation
-	ul
-		border-top: 1px solid #e3e3e3
-
-	li
-		border-bottom: 1px solid #e3e3e3
-		line-height: 18px
-		
-		&.active > a,
-		&.ancestor > a
-			color: #333
-			font-weight: bold
-			background-position: 100% 50%
-			
-			&:hover
-				background-color: transparent
-	
-	a
-		color: #3B5998
-		padding: 6px 6px 6px 10px
-		text-decoration: none
-		display: block
-		background-image: url('../images/arrow-right.png')
-		background-repeat: no-repeat
-		background-position: 100% 150%
-		
-		&:hover
-			background-color: #f8f8f8
-			background-position: 100% 50%
-			color: #162138
-	
-	ul ul
-		border: 0
-		padding-left: 20px
-		padding-bottom: 5px
-		
-		li
-			border: 0
-
-			&.active > a, &.ancestor > a
-				font-weight: bold
-
-		a
-			background: 0
-			padding: 3px 6px
-			color: #444
-			
-			&:hover
-				background: 0
-		
-
-.breadcrumbs
-	margin-top: 5px
-
-	li
-		display: inline
-	
-	li + li:before
-		content: " › "
-
-
-footer
-	font-size: 1.1em
-	color: #999
-	clear: both
-	width: 830px
-	padding: 2em 0 2em 220px
-	text-align: center
-
-
 .sidebar
 	@import "sidebar"
 
+.main
+	@import "content-container"
+
+.messages + .main
+	margin-top: 10px
+
 .content
 	@import "content"
-
-.main
-	float: left
+	@import "forms"
+	
+.messages
 	@import "content-container"
+	margin-bottom: 0
+	padding: .7em 0
+	background-color: rgba(255, 255, 130, .7)
+	overflow: hidden
 	
-.fixed
-	@import "fixed"
+	ul
+		+single-box-shadow(rgba(0, 0, 0, .4), 0, 0, 5px, false, true)
+		margin: 0 -2em
+		padding: .2em 2em
+		border-top: 1px solid #fff
+		border-bottom: 1px solid #fff
+		background: rgba(255, 255, 255, .7)
 
-.wide
-	padding-left: 240px
-	padding-right: 20px
-	max-width: none
+		li
+			margin: 0
+			cursor: default
+			padding: .4em 2em .3em
+			display: block
+			border-bottom: 1px solid #f8f3ca
+			color: #2C261A
+			
+			&:last-child
+				border-bottom: 0
+			
+			& + li
+				border-top: 1px solid #fff
+			
+			&:hover
+				background-color: rgba(255, 255, 0, .1)
+				
+			& + li:hover
+				border-top-color: rgba(255, 255, 255, .8)
 
-.wide > .primary-navigation
-	margin-left: 0
-
-.wide > .searchbox
-	margin-right: 40px
-
-.wide.fixed > .searchbox
-	margin: 16px 0 0 0
-	right: 60px
-
-.wide > footer
-	width: auto
-	padding-left: 0
-
-.wide > header
-	margin-left: -220px
-	margin-right: 20px
-	width: auto
-
-.wide.fixed > header
-	margin-left: 0px
-	margin-right: 0px
-	left: 20px
-	right: 40px
-
-.wide > aside.sidebar
-	margin-left: -220px
-	
-.wide.fixed > aside.sidebar
-	margin-left: 0px
-	top: 188px
-	left: 20px
-
-.wide > .main
-	+box-sizing(border-box)
-	width: 100%
-	margin-left: 0
-
-.wide.fixed > .main
-	margin-left: 0
-
-
-
-
+@import "buttons"
+@import "layouts"

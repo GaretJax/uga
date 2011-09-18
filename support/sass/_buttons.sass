@@ -1,0 +1,183 @@
+button, .button, a.button:visited, a.button:link
+	+border-radius(4px)
+	+box-sizing(border-box)
+	+box-shadow(1px 1px 1px #eee)
+	display: inline-block
+	font-weight: bold
+	padding: 1px
+	color: #5a5a5a
+	border: 1px solid #C6C6C6
+	background: #fff
+	cursor: pointer
+	text-align: center		
+	text-decoration: none
+	font-size: 1.1em
+	font-family: $font-actions
+	-moz-appearance: none
+	
+	&::-moz-focus-inner
+		border: 0
+		padding: 0
+	
+	&.negative
+		border-color: #C98F90
+		color: #892F31
+		
+		&.small
+			color: #9b4d4f
+		
+		span
+			@include background-image(linear-gradient(#fdc3c5, #e28588))
+			text-shadow: 0 1px 0 #ffbbbc
+	
+	&:visited
+		color: #5a5a5a
+
+	span
+		+border-radius(2px)
+		+box-sizing(border-box)
+		@include background-image(linear-gradient(#eeeeee, #dddddd))
+		text-shadow: 0 1px 0 #fff
+		line-height: 1.9em
+		padding: .05em 1em .05em 1em
+		display: block
+		width: 100%
+		
+	&.small
+		font-size: .9em
+		
+		span
+			line-height: 1.8em
+	
+	&:not([disabled]), &:not(.disabled)
+		-webkit-user-focus: ignore
+		-moz-user-focus: ignore
+		user-focus: ignore
+	
+		&:hover, &:focus
+			border: 1px solid #aaa
+			background: #fff
+	
+			span
+				@include background-image(linear-gradient(#eeeeee, #c8c8c8))
+		
+		&:active span
+			@include background-image(linear-gradient(#dddddd, #eeeeee))
+			color: #777
+			text-shadow: 0 -1px 0 #fff
+	
+		&.negative
+			&:hover, &:focus
+				border-color: #cb7b7c
+				color: #8d3d3f
+				+box-shadow(rgba(0, 0, 0, 0.15) 0px 0px 16px)
+			
+				span
+					text-shadow: 0 1px 0 #ffa6a7
+					@include background-image(linear-gradient(#fdb5b7, #d57c7f))
+		
+			&:active
+				span
+					color: #b0575a
+					text-shadow: 0 -1px 0 #ffabac
+					@include background-image(linear-gradient(#e28588, #fdc3c5))
+
+	&[disabled], &.disabled
+		opacity: 0.8
+		cursor: default
+		border-color: #ccc
+
+		span
+			color: #999
+	
+
+.chooser
+	border-bottom: 1px solid transparent
+	display: inline-block
+	position: relative
+	width: 150px
+	margin: 0 0 -1px 0
+	
+	legend
+		display: none
+	
+	&.open
+		border-bottom-color: #c6c6c6
+		margin-bottom: 0
+		
+		button
+			+border-bottom-radius(0px)
+			border-bottom: 0
+			padding-bottom: 0
+			
+			&:hover
+				border-color: #c6c6c6
+			
+			span
+				+border-bottom-radius(0px)
+				@include background-image(linear-gradient(#eeeeee, #c8c8c8))
+				padding-bottom: 0.1em
+		
+		ol
+			display: block
+	
+	button
+		margin: 0
+		vertical-align: -1px
+		margin-bottom: -1px
+		
+		span:after
+			content: " ▾"
+	
+	ol
+		top: 100%
+		+box-sizing(border-box)
+		+border-bottom-radius(4px)
+		width: 100%
+		position: absolute
+		+box-shadow(1px 1px 1px #eee)
+		background: #eee
+		display: none
+		border: 1px solid #c6c6c6
+		border-top: 0
+		margin-top: 1px
+		
+		li
+			border-left: 1px solid #fff
+			border-right: 1px solid #fff
+			border-top: 1px solid rgba(255, 255, 255, .5)
+		
+		li:first-child
+			border-top: 1px solid #fff
+		
+		li:last-child
+			border-bottom: 1px solid #fff
+			+border-bottom-radius(4px)
+		
+		label
+			text-align: left
+			padding: .4em .5em
+			margin: 0
+			width: auto
+			display: block
+			color: #333
+			font-size: .9em
+			text-decoration: none
+		
+			&:hover
+				background: rgba(128, 128, 128, .1)
+				
+		input
+			display: none
+		
+		input + label:before
+			content: "✓"
+			padding: 0 .48em 0 .3em
+			text-align: center
+			visibility: hidden
+		
+		input:checked + label:before
+			visibility: visible
+
+
+
