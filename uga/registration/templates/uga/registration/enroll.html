@@ -1,5 +1,96 @@
 {% extends "admin.html" %}
 
-{% load menu_tags cms_tags %}
+{% load menu_tags cms_tags sekizai_tags %}
 
-{% block content %}{% endblock %}
+{% block content %}
+
+{% addtoblock "js" %}<script src="{{ STATIC_URL }}scripts/forms.js"></script>{% endaddtoblock %}
+
+
+<p>Completa i campi sottostanti per iscrivere un nuovo socio. Solamente il campo <em>Email</em> é richiesto; se gli altri campi vengono lasciati vuoti, i dati restanti verranno richiesti direttamente al socio tramite l'indirizzo email.</p>
+<p>L'iscrizione del nuovo socio sarà effettiva solamente dopo l'eventuale inserimento e la conferma dei dati da parte del socio stesso.</p>
+
+<form action="" method="post" accept-charset="utf-8" class="enroll">
+	{% csrf_token %}
+
+	{{ form.errors }}
+	{{ form.non_field_errors }}
+
+	{{ enroll_form.email.errors }}
+	<p class="email">
+		{{ enroll_form.email.label_tag }}
+		{{ enroll_form.email }}
+	</p>
+
+	<fieldset class="composite">
+		<legend>Name</legend>
+
+		<div>
+			{{ enroll_form.first_name.errors }}
+			<p class="first_name">
+				{{ enroll_form.first_name.label_tag }}
+				{{ enroll_form.first_name }}
+			</p>
+		</div>
+
+		<div>
+			{{ enroll_form.last_name.errors }}
+			<p class="last_name">
+				{{ enroll_form.last_name.label_tag }}
+				{{ enroll_form.last_name }}
+			</p>
+		</div>
+	</fieldset>
+
+
+	<fieldset class="composite">
+		<legend>Street</legend>
+
+		<div>
+			{{ enroll_form.street.errors }}
+			<p class="street">
+				{{ enroll_form.street.label_tag }}
+				{{ enroll_form.street }}
+			</p>
+		</div>
+
+		<div>
+			{{ enroll_form.street_number.errors }}
+			<p class="street_number">
+				{{ enroll_form.street_number.label_tag }}
+				{{ enroll_form.street_number }}
+			</p>
+		</div>
+	</fieldset>
+
+	<fieldset class="composite">
+		<legend>City</legend>
+
+		<div>
+			{{ enroll_form.zip_code.errors }}
+			<p class="zip_code">
+				{{ enroll_form.zip_code.label_tag }}
+				{{ enroll_form.zip_code }}
+			</p>
+		</div>
+
+		<div>
+			{{ enroll_form.city.errors }}
+			<p class="city">
+				{{ enroll_form.city.label_tag }}
+				{{ enroll_form.city }}
+			</p>
+		</div>
+
+	</fieldset>
+
+	{{ enroll_form.subscription.errors }}
+	<p class="subscription">
+		{{ enroll_form.subscription.label_tag }}
+		{{ enroll_form.subscription }}
+	</p>
+
+	<button type="submit">Iscrivi</button>
+</form>
+
+{% endblock %}
