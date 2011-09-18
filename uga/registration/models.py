@@ -50,6 +50,18 @@ class Member(models.Model):
         return u'{0} {1} <{2}>'.format(self.first_name, self.last_name,
                 self.email)
 
+    def address(self):
+        city = '{0} {1}'.format(self.zip_code, self.city)
+        
+        if self.street:
+            if self.street_number:
+                street = '{0} {1}'.format(self.street, self.street_number)
+            else:
+                street = self.street
+            return '{0}, {1}'.format(street, city)
+        else:
+            return city
+
     def is_complete(self):
         return self.__class__.objects._get_completion_status(self)
     is_complete.boolean = True

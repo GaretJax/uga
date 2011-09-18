@@ -5,12 +5,22 @@
 {% block content %}
 	<h2>Soci attivi</h2>
 	<table>
+		<tr>
+			<th>Nome</th>
+			<th>Indirizzo</th>
+			<th>Email</th>
+		</tr>
 	{% for member in members %}
 		<tr>
 			<td>{{ member.first_name }} {{ member.last_name}}</td>
-			<td>{{ member.email }}</td>
+			<td>{{ member.address }}</td>
+			<td><a href="mailto:{{ member.email }}">{{ member.email }}</a></td>
 		</tr>
 	{% endfor %}
+		<tfoot>
+			<th>Totale</th>
+			<td colspan="2">{{ members|length }} soci</td>
+		</tfoot>
 	</table>
 	
 	<h2>Altri soci</h2>
