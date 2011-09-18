@@ -11,7 +11,9 @@ from uga.registration import forms, models
 
 
 def list(request):
-    return
+    return render_to_response('uga/registration/list.html', {
+        'members': models.Member.objects.all(),
+    }, context_instance=RequestContext(request))
 
 
 def enroll(request):
@@ -44,6 +46,6 @@ def enroll(request):
         enroll_form = forms.EnrollForm(initial=initial)
 
     return render_to_response('uga/registration/enroll.html', {
-        'page_title': 'Iscrizione soci',
+        'page_title': 'Nuova iscrizione',
         'enroll_form': enroll_form,
     }, context_instance=RequestContext(request))

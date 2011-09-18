@@ -1,0 +1,17 @@
+{% extends "admin.html" %}
+
+{% load menu_tags cms_tags sekizai_tags %}
+
+{% block content %}
+	<h2>Soci attivi</h2>
+	<table>
+	{% for member in members %}
+		<tr>
+			<td>{{ member.first_name }} {{ member.last_name}}</td>
+			<td>{{ member.email }}</td>
+		</tr>
+	{% endfor %}
+	</table>
+	
+	<h2>Altri soci</h2>
+{% endblock %}

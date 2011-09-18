@@ -10,7 +10,7 @@ class RegistrationMenu(CMSAttachMenu):
 
     def get_nodes(self, request):
         return [
-            NavigationNode(_('Iscrizione soci'), reverse('enroll'), 1),
+            NavigationNode(_('Nuova iscrizione'), reverse('enroll'), 1),
         ]
 
 menu_pool.register_menu(RegistrationMenu)
