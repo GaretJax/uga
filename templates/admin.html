@@ -12,7 +12,7 @@
 	{% addtoblock "js" %}<script src="{{ STATIC_URL }}scripts/jquery-1.6.2.js"></script>{% endaddtoblock %}
 	{% addtoblock "js" %}<script src="{{ STATIC_URL }}scripts/master.js"></script>{% endaddtoblock %}
 </head>
-<body class="wide admin">
+<body class="admin">
 	<header>
 		<h1><a href="{% page_url "index" %}"><img src="{{ STATIC_URL }}images/logo.png" alt="UGA" /></a></h1>
 	</header>
@@ -32,6 +32,16 @@
 
 		{#% placeholder "sidebar-widgets" inherit %#}
 	</aside>
+
+	{% if messages %}
+	<section class="messages content">
+		<ul>
+			{% for message in messages %}
+			<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|safe }}</li>
+			{% endfor %}
+		</ul>
+	</section>
+	{% endif %}
 
 	<section class="main content">
 		<h1>{% if page_title %}{{ page_title}}{% else %}{% page_attribute "page_title" %}{% endif %}</h1>

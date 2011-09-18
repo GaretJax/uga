@@ -16,6 +16,16 @@
 			<p>UGA, Unica. Precisa. Puntuale. Ticinese. <a href="#">#slogan_uga</a></p>
 		</div>
 	</aside>
+	
+	{% if messages %}
+	<section class="messages content">
+		<ul>
+			{% for message in messages %}
+			<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|safe }}</li>
+			{% endfor %}
+		</ul>
+	</section>
+	{% endif %}
 
 	<section class="main content">
 		<h1>{% page_attribute "page_title" %}</h1>
