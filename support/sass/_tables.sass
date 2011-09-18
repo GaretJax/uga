@@ -1,0 +1,28 @@
+.table
+	border: 1px solid #eee
+	padding: .2em
+
+table
+	width: 100%
+	border-collapse: separate
+	border-spacing: 1px
+
+	tr
+		th, td
+			border: 1px solid #ddd
+			padding: .3em .7em
+		
+			& + th, & + td
+				border-left: 0
+		
+		& + tr
+			th, td
+				border-top: 0
+		
+		th
+			font-weight: bold
+			background: #f6f6f6
+			color: #444
+	
+	tfoot
+		border-top: 5px solid #fff

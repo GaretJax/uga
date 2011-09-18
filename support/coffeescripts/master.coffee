@@ -25,7 +25,10 @@ $ ->
 		else
 			$('body').removeClass('fixed')
 	.resize()
-
+	
+	# Wrap tables in divs to enable advanced styling
+	$('.content table').wrap($('<div/>').addClass('table'))
+	
 	###
 	hideAll = ->
 		$('section.messages').animate({'opacity': 0}, 300)
