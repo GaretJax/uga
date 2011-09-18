@@ -3,7 +3,7 @@ String.prototype.capitalize = ->
 
 $ ->
 	# Set body min-height to the sidebar height
-	$('body > .main').css('min-height', $('body > .sidebar').outerHeight(true) + 20)
+	$('body > .main').css('min-height', $('body > .sidebar').outerHeight(true) + $('body > header').outerHeight(true) - 56 + 20)
 
 	# Support for manual switch between fixed/normal and wide/tight layout
 	$('body').keypress (e) ->
