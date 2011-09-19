@@ -51,14 +51,14 @@ class Member(models.Model):
                 self.email)
 
     def address(self):
-        city = '{0} {1}'.format(self.zip_code, self.city)
+        city = u'{0} {1}'.format(self.zip_code, self.city)
         
         if self.street:
             if self.street_number:
-                street = '{0} {1}'.format(self.street, self.street_number)
+                street = u'{0} {1}'.format(self.street, self.street_number)
             else:
                 street = self.street
-            return '{0}, {1}'.format(street, city)
+            return u'{0}, {1}'.format(street, city)
         else:
             return city
 
