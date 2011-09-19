@@ -29,7 +29,7 @@ from uga.registration import models
 
 
 class MemberAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'email', 'is_complete')
+    list_display = ('first_name', 'last_name', 'email', 'street', 'street_number', 'is_complete')
 #    list_filter = (IncompleteListFilter,)
 admin.site.register(models.Member, MemberAdmin)
 
