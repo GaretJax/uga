@@ -70,6 +70,7 @@ class Member(models.Model):
         permissions = (
             ("enroll_member", "Can enroll a new member"),
         )
+        ordering = 'first_name', 'last_name'
 
 
 
