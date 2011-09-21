@@ -85,3 +85,5 @@ $ ->
 			.keyup(updateNames)
 			.attr('autocomplete', 'off')
 			.focus()
+		$('form.enroll .street_number input')
+			.attr('autocomplete', 'off')
