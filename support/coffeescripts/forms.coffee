@@ -51,6 +51,10 @@ $ ->
 	
 	$('button, a.button').wrapInner('<span/>')
 	
+	# Autosize textareas to fit content
+	$('textarea.autosize').height ->
+		$(this).prop('scrollHeight') + 2
+	
 	# Advanced enrollment form controls
 	enrollForm = $('form.enroll')
 	if enrollForm.size()
