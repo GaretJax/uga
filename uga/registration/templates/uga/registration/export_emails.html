@@ -1,0 +1,11 @@
+{% extends "admin.html" %}
+
+{% load menu_tags cms_tags sekizai_tags %}
+
+{% block content %}
+
+{% addtoblock "js" %}<script src="{{ STATIC_URL }}scripts/forms.js"></script>{% endaddtoblock %}
+
+	<textarea class="autosize max">{% for member in members %}
+{{ member.email }}{% endfor %}</textarea>
+{% endblock %}

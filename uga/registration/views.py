@@ -16,6 +16,13 @@ def list(request):
     }, context_instance=RequestContext(request))
 
 
+def export_emails(request):
+    return render_to_response('uga/registration/export_emails.html', {
+        'page_title': 'Esporta indirizzi email',
+        'members': models.Member.objects.all(),
+    }, context_instance=RequestContext(request))
+
+
 def enroll(request):
     today = date.today()
     default_subscribtion = models.SubscriptionYear.objects.filter(
