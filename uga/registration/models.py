@@ -85,7 +85,7 @@ class SubscriptionYear(models.Model):
 
 
 class Membership(models.Model):
-    date_joined = models.DateField(auto_now_add=True)
+    date_joined = models.DateTimeField(auto_now_add=True)
     person = models.ForeignKey(Member)
     year = models.ForeignKey(SubscriptionYear)
 
