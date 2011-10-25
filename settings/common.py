@@ -159,7 +159,7 @@ INSTALLED_APPS = (
     'cms.plugins.twitter',
     
     # UGA Apps
-    'uga.registration'
+    'uga.registration',
     'uga.auth',
 )
 
