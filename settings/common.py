@@ -107,8 +107,8 @@ MIDDLEWARE_CLASSES = (
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
-#LOGIN_URL = '/login.html'
-#LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/login.html'
+LOGIN_REDIRECT_URL = '/'
 #PERMISSIONS_VIEW = 'adb.frontend.auth.views.permission_required'
 
 ROOT_URLCONF = 'urls'
@@ -154,6 +154,7 @@ INSTALLED_APPS = (
     'cms.plugins.twitter',
     
     # UGA Apps
+    'uga.auth',
 )
 
 CMS_TEMPLATES = (
