@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% load menu_tags cms_tags %}
+
+{% block content %}
+	<aside class="sidebar">
+	</aside>
+
+	<section class="main content">
+		<h1>Login!</h1>
+		<hr />
+		
+		<form action="" method="POST">
+			<input type="hidden" name="next" value="{{ next }}" />
+			{% csrf_token %}
+			
+			{% if form.errors %}
+			<p class="error">Il nome utente o la password inseriti non sono corretti. Per favore prova di nuovo.</p>
+			
+			{% endif %}
+			<fieldset>
+				<p>
+					{{ form.username.label_tag }}
+					{{ form.username|safe }}
+				</p>
+			
+				<p>
+					{{ form.password.label_tag }}
+					{{ form.password|safe }}
+				</p>
+			</fieldset>
+			
+			<button type="submit">Entra</button>
+		</form>
+	</section>
+{% endblock %}
