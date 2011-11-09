@@ -112,7 +112,7 @@ MIDDLEWARE_CLASSES = (
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
-LOGIN_URL = '/login.html'
+LOGIN_URL = '/accedi/'
 LOGIN_REDIRECT_URL = '/'
 #PERMISSIONS_VIEW = 'adb.frontend.auth.views.permission_required'
 
@@ -132,13 +132,13 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     # Third party apps
     'sentry',
     'sentry.client',
     'sentry.plugins.sentry_urls',
     #'haystack',
-    
+
     # Django cms apps
     'cms',
     'mptt',
@@ -157,7 +157,7 @@ INSTALLED_APPS = (
     'cms.plugins.teaser',
     'cms.plugins.video',
     'cms.plugins.twitter',
-    
+
     # UGA Apps
     'uga.registration',
     'uga.auth',
@@ -218,3 +218,4 @@ LOGGING = {
         },
     }
 }
+
