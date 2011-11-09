@@ -6,10 +6,11 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 
-
+from uga.decorators import require_cms_permissions
 from uga.registration import forms, models
 
 
+@require_cms_permissions
 def list(request):
     return render_to_response('uga/registration/list.html', {
         'members': models.Member.objects.all(),
