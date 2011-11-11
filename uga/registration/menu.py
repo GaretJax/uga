@@ -11,7 +11,7 @@ class RegistrationMenu(CMSAttachMenu):
     def get_nodes(self, request):
         return [
             NavigationNode(_('Nuova iscrizione'), reverse('enroll'), 1),
-            NavigationNode(_('Esporta indirizzi email'), reverse('export_emails'), 1),
+            NavigationNode(_('Esporta indirizzi email'), reverse('export_emails'), 2),
         ]
 
 menu_pool.register_menu(RegistrationMenu)

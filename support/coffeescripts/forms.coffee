@@ -8,6 +8,17 @@ $ ->
 	.parent().click ->
 		$('input, textarea', this).focus()
 	
+	$('form > p > label > input[type=checkbox]').focus ->
+		$(this).parent().parent().addClass('focus')
+	.blur ->
+		$(this).parent().parent().removeClass('focus')
+	.click (e) ->
+		e.stopImmediatePropagation()
+	.parent().click (e) ->
+		e.stopImmediatePropagation()
+	.parent().parent().click ->
+		$('input', this).attr('checked', (index, val) -> not val)
+
 	$('fieldset.composite p > input, fieldset.composite p > textarea, fieldset.composite p > select').focus ->
 		$(this).closest('fieldset.composite').addClass('focus')
 	.blur ->
@@ -56,7 +67,7 @@ $ ->
 		$(this).prop('scrollHeight') + 2
 	
 	# Advanced enrollment form controls
-	enrollForm = $('form.enroll')
+	enrollForm = $('form.enroll, form.edit-member')
 	if enrollForm.size()
 		smartAddresses = $('<ul></ul>').addClass('smart-addresses')
 
@@ -74,20 +85,20 @@ $ ->
 						$(this).closest('form').find('.street input').focus()
 					.appendTo($('<li></li>').appendTo(smartAddresses))
 
-		$('form.enroll .email').append(smartAddresses)
+		$('.email', enrollForm).append(smartAddresses)
 		updateNames = ->
 			input = $(this)
 			[name, domain] = input.val().split('@')
 			if domain in ['unifr.ch', 'edu.hefr.ch']
 				[first_name, last_name] = name.split('.')
 				if first_name and last_name
-					$('form.enroll .first_name input').val(first_name.capitalize())
-					$('form.enroll .last_name input').val(last_name.capitalize())
+					$('.first_name input', enrollForm).val(first_name.capitalize())
+					$('.last_name input', enrollForm).val(last_name.capitalize())
 	
-		$('form.enroll .email input')
+		$('.email input', enrollForm)
 			.change(updateNames)
 			.keyup(updateNames)
 			.attr('autocomplete', 'off')
 			.focus()
-		$('form.enroll .street_number input')
+		$('.street_number input', enrollForm)
 			.attr('autocomplete', 'off')

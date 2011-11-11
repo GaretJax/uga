@@ -4,11 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 
 
 
-class EnrollForm(forms.ModelForm):
-
-    # Additional fields
-    subscription = forms.ModelChoiceField(
-            queryset=models.SubscriptionYear.objects.all())
+class EditForm(forms.ModelForm):
 
     # Overrides to specify custom attributes
     street = forms.CharField(label=_('Name'), required=False)
@@ -17,4 +13,38 @@ class EnrollForm(forms.ModelForm):
 
     class Meta:
         model = models.Member
+
+
+
+class SubscriptionForm(forms.Form):
+
+    def __init__(self, member, *args, **kwargs):
+        super(SubscriptionForm, self).__init__(*args, **kwargs)
+
+        self.fields['subscription'].queryset = models.SubscriptionYear.objects.exclude(membership__person=member).order_by('-start')
+
+    subscription = forms.ModelChoiceField(
+            queryset=models.SubscriptionYear.objects.all())
+
+
+
+class SubscriptionDeletionForm(forms.Form):
+
+    def __init__(self, member, *args, **kwargs):
+        super(SubscriptionDeletionForm, self).__init__(*args, **kwargs)
+
+        self.fields['membership'].queryset = member.membership_set
+
+    membership = forms.ModelChoiceField(
+            queryset=models.Membership.objects.all())
+
+
+
+class EnrollForm(EditForm):
+
+    mailing_list = forms.BooleanField(required=False)
+
+    # Additional fields
+    subscription = forms.ModelChoiceField(
+            queryset=models.SubscriptionYear.objects.all())
 

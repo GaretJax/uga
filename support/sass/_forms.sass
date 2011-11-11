@@ -15,6 +15,10 @@ label
 	text-align: right
 	padding-right: .5em
 
+form p label:only-child
+	width: auto
+	margin-left: 10.7em
+
 form
 	fieldset
 		margin: 1em 0
@@ -42,14 +46,38 @@ form
 	//		label
 	//			width: 10em
 
-	button, .button
-		margin-left: 10.85em
+	button[type=submit], .button
+		margin-left: 10.8em
 
 	button
 		margin-top: .5em
 
 	input + button
 		margin-left: 1em
+
+form.confirmation
+
+	p
+		border: 0
+		text-align: justify
+		width: 80%
+		max-width: 600px
+		margin: 1em auto
+		padding: 0
+
+		&:first-of-type
+			color: #444
+			font-weight: bold
+			font-size: 1.2em
+			margin-top: 2em
+		
+		&:last-of-type
+			text-align: center
+			padding-top: 1em
+
+	button
+		margin: 0 .8em
+		width: 14em
 
 select
 	font-size: 1.3em
@@ -207,7 +235,7 @@ form.yesno
 
 // Form specific styles
 
-form.enroll
+form.enroll, form.edit-member
 	.email input
 		width: 26.6em
 
@@ -237,4 +265,6 @@ form.enroll
 		button
 			margin-left: .5em
 
+form.edit-member button
+	margin-top: .7em
 

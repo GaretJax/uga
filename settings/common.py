@@ -137,6 +137,7 @@ INSTALLED_APPS = (
     'sentry',
     'sentry.client',
     'sentry.plugins.sentry_urls',
+    'mailchimp',
     #'haystack',
 
     # Django cms apps
@@ -219,3 +220,6 @@ LOGGING = {
     }
 }
 
+
+MAILCHIMP_API_KEY = ''
+MAILING_LIST_ID = ''

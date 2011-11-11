@@ -1,0 +1,26 @@
+{% extends "admin.html" %}
+
+{% load menu_tags cms_tags sekizai_tags %}
+
+{% block adminclass %}edit-member{% endblock %}
+
+{% block content %}
+
+{% addtoblock "js" %}<script src="{{ STATIC_URL }}scripts/forms.js"></script>{% endaddtoblock %}
+
+<form action="" method="post" accept-charset="utf-8" class="confirmation">
+	{% csrf_token %}
+
+	<p>Sei sicuro di voler rimuovere il socio <em>{{ member.get_full_name }}</em> dal sistema?</p>
+	<p>Questa operazione <strong>non</strong> può essere annullata.</p>
+	<p>Ricordati che dovresti rimuovere un socio dal sistema solo se strettamente necessario o se richiesto da quest'ultimo; in alternativa puoi semplicemente disiscrivere o modificare i dati riguardanti un socio usando gli <a href="{% url edit_member member.pk %}">appositi strumenti</a>.</p>
+
+	<p>
+		<button type="submit" name="action" value="cancel">No, torna indietro</button>
+		<button type="submit" name="action" value="remove" class="negative">Si, rimuovi</button>
+	</p>
+</form>
+	
+{% endblock %}
+
+

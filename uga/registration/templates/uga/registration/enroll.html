@@ -81,13 +81,17 @@
 				{{ enroll_form.city }}
 			</p>
 		</div>
-
 	</fieldset>
 
 	{{ enroll_form.subscription.errors }}
 	<p class="subscription">
 		{{ enroll_form.subscription.label_tag }}
 		{{ enroll_form.subscription }}
+	</p>
+
+	{{ enroll_form.mailing_list.errors }}
+	<p class="mailing-list">
+		<label>{{ enroll_form.mailing_list }} Iscrivi alla mailing list</label>
 	</p>
 
 	<button type="submit">Iscrivi</button>

@@ -46,13 +46,16 @@ class Member(models.Model):
     zip_code = models.PositiveSmallIntegerField(blank=True, null=True)
     city = models.CharField(max_length=255, blank=True, null=True)
 
+    def get_full_name(self):
+        return u'{0} {1}'.format(self.first_name, self.last_name)
+
     def __unicode__(self):
         return u'{0} {1} <{2}>'.format(self.first_name, self.last_name,
                 self.email)
 
     def address(self):
         city = u'{0} {1}'.format(self.zip_code, self.city)
-        
+
         if self.street:
             if self.street_number:
                 street = u'{0} {1}'.format(self.street, self.street_number)
