@@ -137,7 +137,7 @@ INSTALLED_APPS = (
     'sentry',
     'sentry.client',
     'sentry.plugins.sentry_urls',
-    'mailchimp',
+    #'mailchimp',
     #'haystack',
 
     # Django cms apps
