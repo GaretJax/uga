@@ -18,12 +18,16 @@ IGNORABLE_404_ENDS = ['favicon.ico','favicon.png',]
 
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = 'sqlite3'           # '', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = os.path.join(PROJECT_BASE, 'assets', 'database.sqlite')             # Or path to database file if using sqlite3.
-DATABASE_USER = ''             # Not used with sqlite3.
-DATABASE_PASSWORD = ''         # Not used with sqlite3.
-DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
-DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
+DATABASES = {
+    'default': {
+        'ENGINE':'sqlite3',
+        'NAME': os.path.join(PROJECT_BASE, 'assets', 'database.sqlite'),
+        'USER': '',             # Not used with sqlite3.
+        'PASSWORD': '',         # Not used with sqlite3.
+        'HOST': '',             # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',             # Set to empty string for default. Not used with sqlite3.
+    }
+}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -93,6 +97,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'django.middleware.transaction.TransactionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -107,7 +112,7 @@ MIDDLEWARE_CLASSES = (
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
-LOGIN_URL = '/login.html'
+LOGIN_URL = '/accedi/'
 LOGIN_REDIRECT_URL = '/'
 #PERMISSIONS_VIEW = 'adb.frontend.auth.views.permission_required'
 
@@ -127,13 +132,14 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     # Third party apps
     'sentry',
     'sentry.client',
     'sentry.plugins.sentry_urls',
+    #'mailchimp',
     #'haystack',
-    
+
     # Django cms apps
     'cms',
     'mptt',
@@ -152,13 +158,15 @@ INSTALLED_APPS = (
     'cms.plugins.teaser',
     'cms.plugins.video',
     'cms.plugins.twitter',
-    
+
     # UGA Apps
+    'uga.registration',
     'uga.auth',
 )
 
 CMS_TEMPLATES = (
     ('index.html', 'Homepage template'),
+    ('admin.html', 'Admin template'),
     ('left-sidebar.html', 'Normal page (left sidebar)'),
 )
 
@@ -211,3 +219,7 @@ LOGGING = {
         },
     }
 }
+
+
+MAILCHIMP_API_KEY = ''
+MAILING_LIST_ID = ''

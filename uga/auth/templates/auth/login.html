@@ -1,13 +1,15 @@
 {% extends "base.html" %}
 
-{% load menu_tags cms_tags %}
+{% load menu_tags cms_tags sekizai_tags %}
 
 {% block content %}
+
+{% addtoblock "js" %}<script src="{{ STATIC_URL }}scripts/forms.js"></script>{% endaddtoblock %}
 	<aside class="sidebar">
 	</aside>
 
 	<section class="main content">
-		<h1>Login!</h1>
+		<h1>Login</h1>
 		<hr />
 		
 		<form action="" method="POST">
@@ -15,7 +17,7 @@
 			{% csrf_token %}
 			
 			{% if form.errors %}
-			<p class="error">Il nome utente o la password inseriti non sono corretti. Per favore prova di nuovo.</p>
+			<p class="formerror">Il nome utente o la password inseriti non sono corretti. Per favore prova di nuovo.</p>
 			
 			{% endif %}
 			<fieldset>

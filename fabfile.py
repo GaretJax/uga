@@ -69,7 +69,11 @@ def deploy_prod():
 
 def rundev():
     with lcd(BASE):
-        server = subprocess.Popen(['./manage.py', 'runserver'])
         guard = subprocess.Popen(['Guard'])
-        server.wait()
-        guard.wait()
+        try:
+            while True:
+                server = subprocess.Popen(['./manage.py', 'runserver'])
+                server.wait()
+        except KeyboardInterrupt:
+            guard.wait()
+            server.wait()

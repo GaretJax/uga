@@ -1,0 +1,162 @@
+{% extends "admin.html" %}
+
+{% load menu_tags cms_tags sekizai_tags %}
+
+{% block adminclass %}edit-member{% endblock %}
+
+{% block content %}
+
+{% addtoblock "js" %}<script src="{{ STATIC_URL }}scripts/forms.js"></script>{% endaddtoblock %}
+
+
+<form action="" method="post" accept-charset="utf-8" class="edit-member">
+	{% csrf_token %}
+
+	{{ form.errors }}
+	{{ form.non_field_errors }}
+
+    <h2>Dati generali</h2>
+
+	{{ edit_form.email.errors }}
+	<p class="email">
+		{{ edit_form.email.label_tag }}
+		{{ edit_form.email }}
+	</p>
+
+	<fieldset class="composite">
+		<legend>Name</legend>
+
+		<div>
+			{{ edit_form.first_name.errors }}
+			<p class="first_name">
+				{{ edit_form.first_name.label_tag }}
+				{{ edit_form.first_name }}
+			</p>
+		</div>
+
+		<div>
+			{{ edit_form.last_name.errors }}
+			<p class="last_name">
+				{{ edit_form.last_name.label_tag }}
+				{{ edit_form.last_name }}
+			</p>
+		</div>
+	</fieldset>
+
+
+	<fieldset class="composite">
+		<legend>Street</legend>
+
+		<div>
+			{{ edit_form.street.errors }}
+			<p class="street">
+				{{ edit_form.street.label_tag }}
+				{{ edit_form.street }}
+			</p>
+		</div>
+
+		<div>
+			{{ edit_form.street_number.errors }}
+			<p class="street_number">
+				{{ edit_form.street_number.label_tag }}
+				{{ edit_form.street_number }}
+			</p>
+		</div>
+	</fieldset>
+
+	<fieldset class="composite">
+		<legend>City</legend>
+
+		<div>
+			{{ edit_form.zip_code.errors }}
+			<p class="zip_code">
+				{{ edit_form.zip_code.label_tag }}
+				{{ edit_form.zip_code }}
+			</p>
+		</div>
+
+		<div>
+			{{ edit_form.city.errors }}
+			<p class="city">
+				{{ edit_form.city.label_tag }}
+				{{ edit_form.city }}
+			</p>
+		</div>
+    </fieldset>
+	<button type="submit" class="small">Salva</button>
+</form>
+
+<section class="edit-subscriptions">
+	<h2>Iscrizioni</h2>
+	<table>
+		<tbody>
+			{% for membership in member.membership_set.all %}
+			<tr>
+				<td>{{ membership.year }} <span>{{ membership.date_joined }}</span></td>
+				<td>
+					<form action="{% url edit_subscriptions member.pk %}" method="post">
+						{% csrf_token %}
+						<input type="hidden" name="action" value="delete"/>
+						<button class="small negative" type="submit" name="membership" value="{{ membership.pk }}">Disiscrivi</button>
+					</form>
+				</td>
+			</tr>
+			{% empty %}
+			<tr class="empty">
+				<td><p>Ooops,… da quanto ci risulta, <em>{{ member.first_name }}</em> non è mai stato/a iscritto all'UGA!</p></td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	{% if subscription_form.fields.subscription.choices|length %}
+	<form method="post" action="{% url edit_subscriptions member.pk %}">
+		{% csrf_token %}
+		<input type="hidden" name="action" value="enroll"/>
+		{{ subscription_form.subscription }}
+		<button type="submit" class="small">Iscrivi</button>
+	</form>
+	{% endif %}
+</section>
+
+<section class="mailing-list">
+	<h2>Mailing list</h2>
+
+	<form action="{% url edit_mailing_list member.pk %}" method="post">
+	{% csrf_token %}
+	{% if mailing_list_membership %}
+		{% with status=mailing_list_membership.status email=mailing_list_membership.email %}
+			{% ifequal status "pending" %}
+			<button class="small" name="action" value="unsubscribe">Disiscrivi</button>
+			<p><em>{{ member.first_name }}</em> è attualmente iscritto alla mailing list con l'indirizzo <em>{{ email }}</em> (pending).</p>
+			{% endifequal %}
+
+			{% ifequal status "cleaned" %}
+			<p><em>{{ member.first_name }}</em> era iscritto alla mailing list ma è stato rimosso dal sistema poichè non è stato possibile recapitare le email all'indirizzo <em>{{ email }}</em>.</p>
+			{% endifequal %}
+
+			{% ifequal status "subscribed" %}
+			<button class="small" name="action" value="unsubscribe">Disiscrivi</button>
+			<p><em>{{ member.first_name }}</em> è attualmente iscritto alla mailing list con l'indirizzo <em>{{ email }}</em>.</p>
+			{% endifequal %}
+
+			{% ifequal status "unsubscribed" %}
+			<button class="small" name="action" value="resubscribe">Reiscrivi</button>
+			<p><em>{{ member.first_name }}</em> era iscritto alla mailing list con l'indirizzo <em>{{ email }}</em> ma si è disiscritto.</p>
+			<p class="note">Prima di forzare le reiscrizione di un utente che si è precedentemente disiscritto, assicurati che questo corrisponda effettivamente ai suoi desideri. L'utente dovrà comunque confermare l'iscrizione.</p>
+			{% endifequal %}
+		{% endwith %}
+	{% else %}
+	<button class="small" name="action" value="subscribe">Iscrivi</button>
+	<p><em>{{ member.first_name }}</em> non è attualmente iscritto/a alla mailing list oppure non ha ancora confermato l'iscrizione.</p>
+	{% endif %}
+	</form>
+</section>
+
+<section class="delete-member">
+	<h2>Rimozione socio</h2>
+	<p>È possibile rimuovere completamente un socio dal sistema eliminando tutti i dati che lo riguardano. Rimuovi un socio dal sistema solo se strettamente necessario o se richiesto da quest'ultimo; in alternativa puoi semplicmente disiscrivere o modificare i dati riguardanti un socio usando gli strumenti qui sopra.</p>
+	<a href="{% url remove_member member.pk %}" class="button negative small">Rimuovi</a>
+</section>
+{% endblock %}
+

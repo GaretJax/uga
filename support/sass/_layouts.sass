@@ -1,0 +1,57 @@
+.fixed
+	> header, > .primary-navigation, > .searchbox, > aside.sidebar
+		position: fixed
+
+
+.wide
+	padding-left: 240px
+	padding-right: 20px
+	max-width: none
+
+	> .primary-navigation
+		margin-left: 0
+
+	> .searchbox
+		margin-right: 40px
+
+	> footer
+		width: auto
+		padding-left: 0
+
+	> header
+		margin-left: -220px
+		margin-right: 20px
+		width: auto
+
+	> .main
+		+box-sizing(border-box)
+		width: 100%
+		margin-left: 0
+
+
+.wide.fixed
+	> .searchbox
+		margin: 16px 0 0 0
+		right: 60px
+
+	> header
+		margin-left: 0px
+		margin-right: 0px
+		left: 20px
+		right: 40px
+
+		> aside.sidebar
+			margin-left: -220px
+
+	> aside.sidebar
+		margin-left: 0px
+		top: 188px
+		left: 20px
+
+
+	> .main
+		margin-left: 0
+
+
+
+

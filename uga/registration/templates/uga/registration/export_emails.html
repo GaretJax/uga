@@ -1,0 +1,16 @@
+{% extends "admin.html" %}
+
+{% load menu_tags cms_tags sekizai_tags %}
+
+{% block content %}
+
+{% addtoblock "js" %}<script src="{{ STATIC_URL }}scripts/forms.js"></script>{% endaddtoblock %}
+
+	<h2>Nominativi (Tab Delimited)</h2>
+	<textarea class="autosize max">{% for member in members %}
+{{ member.first_name }}	{{ member.last_name }}	{{ member.email }}{% endfor %}</textarea>
+
+	<h2>Lista email</h2>
+	<textarea class="autosize max">{% for member in members %}
+{{ member.email }}{% endfor %}</textarea>
+{% endblock %}
