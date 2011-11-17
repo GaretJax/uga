@@ -127,13 +127,15 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     # Third party apps
     'sentry',
     'sentry.client',
     'sentry.plugins.sentry_urls',
+    'schedule',
+    #'mailchimp',
     #'haystack',
-    
+
     # Django cms apps
     'cms',
     'mptt',
@@ -152,8 +154,10 @@ INSTALLED_APPS = (
     'cms.plugins.teaser',
     'cms.plugins.video',
     'cms.plugins.twitter',
-    
+
     # UGA Apps
+    'uga.registration',
+    'uga.calendar',
     'uga.auth',
 )
 
@@ -181,6 +185,9 @@ CMS_CONTENT_CACHE_DURATION = 1
 
 # Django-schedule configuration
 FIRST_DAY_OF_WEEK = 1 # Monday
+
+# Django-schedule configuration
+FIRST_DAY_OF_WEEK = 1
 
 
 #HAYSTACK_SITECONF = 'adb.frontend.search_sites'

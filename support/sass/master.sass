@@ -57,7 +57,33 @@ header
 		
 
 .primary-navigation
+<<<<<<< Updated upstream
 	margin: -172px 20px -5px 220px
+=======
+	@import "navigation"
+
+.sidebar
+	@import "sidebar"
+
+body > section
+	@import "content-container"
+
+	&:nth-of-type(1)
+		margin-top: 56px
+
+.content
+	@import "content"
+	@import "forms"
+
+.messages
+	@import "messages"
+
+@import "buttons"
+@import "layouts"
+@import "calendar"
+
+form.edit-member
+>>>>>>> Stashed changes
 	overflow: auto
 	padding: 20px 0
 
