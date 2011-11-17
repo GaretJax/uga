@@ -124,7 +124,7 @@ def edit(request, member_id):
         mailing_list_membership = None
 
     return render_to_response('uga/registration/edit.html', {
-        'page_title': u'Modifica "{0}"'.format(member.get_full_name()),
+        'page_title': member.get_full_name(),
         'member': member,
         'edit_form': edit_form,
         'subscription_form': subscription_form,

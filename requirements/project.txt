@@ -16,3 +16,4 @@ django-snippetscream==0.0.5
 django-templatetag-sugar==0.1
 psycopg2==2.4.2
 pycrypto==2.3
+-e git+https://github.com/bartekgorny/django-schedule.git#egg=django-schedule

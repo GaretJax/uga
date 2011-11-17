@@ -137,6 +137,7 @@ INSTALLED_APPS = (
     'sentry',
     'sentry.client',
     'sentry.plugins.sentry_urls',
+    'schedule',
     #'mailchimp',
     #'haystack',
 
@@ -161,6 +162,7 @@ INSTALLED_APPS = (
 
     # UGA Apps
     'uga.registration',
+    'uga.calendar',
     'uga.auth',
 )
 
@@ -189,6 +191,9 @@ CMS_CONTENT_CACHE_DURATION = 1
 
 # Django-schedule configuration
 FIRST_DAY_OF_WEEK = 1 # Monday
+
+# Django-schedule configuration
+FIRST_DAY_OF_WEEK = 1
 
 
 #HAYSTACK_SITECONF = 'adb.frontend.search_sites'
@@ -223,3 +228,4 @@ LOGGING = {
 
 MAILCHIMP_API_KEY = ''
 MAILING_LIST_ID = ''
+

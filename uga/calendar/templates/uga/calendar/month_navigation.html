@@ -1,0 +1,12 @@
+{% load calendar %}
+
+<nav class="calendar-nav">
+	<ul>
+		{% with period.prev_month.start as prev %}
+		    <li><a href="{% calendar_month_url request.path prev.year prev.month %}">&larr; {{ prev|date:"F Y"|capfirst }}</a></li>
+		{% endwith %}
+		{% with period.next_month.start as next %}
+		    <li><a href="{% calendar_month_url request.path next.year next.month %}">{{ next|date:"F Y"|capfirst }} &rarr;</a></li>
+		{% endwith %}
+	</ul>
+</nav>

@@ -55,6 +55,7 @@ footer
 			+single-transition(width, .3s, ease-out)
 
 .primary-navigation
+	margin: -172px 20px -5px 220px
 	@import "navigation"
 
 .sidebar
@@ -75,6 +76,7 @@ body > section
 
 @import "buttons"
 @import "layouts"
+@import "calendar"
 
 form.edit-member
 	overflow: auto
@@ -183,8 +185,12 @@ form.edit-member
 
 .delete-member
 	overflow: auto
-	
+
 	.button
 		width: 7.5em
 		float: right
 		margin-right: 0.85em
+
+.fixed
+	@import "fixed"
+
