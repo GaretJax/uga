@@ -40,8 +40,10 @@
 		</ul>
 		{% endifequal %}
 		{% endifnotequal %}
-		<hr />
-
+        <hr />
+        
+        {% block main-content %}
 		{% placeholder "main-content" %}
+        {% endblock %}
 	</section>
 {% endblock %}
