@@ -163,6 +163,7 @@ INSTALLED_APPS = (
     # UGA Apps
     'uga.registration',
     'uga.calendar',
+    'uga.photos',
     'uga.auth',
 )
 

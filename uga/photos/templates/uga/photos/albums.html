@@ -1,0 +1,16 @@
+{% extends "uga/photos/base.html" %}
+
+{% block main-content %}
+
+<ul class="albums">
+	{% for album in albums.entry %}
+	<li><a href="{{ album.gphoto_id.text }}">
+		<img src="{{ album.media.thumbnail.0.url }}" width="{{ album.media.thumbnail.0.width }}" height="{{ album.media.thumbnail.0.height }}" />
+		<strong>{{ album.title.text }}</strong>
+		<span>{{ album.numphotos.text }} foto</span>
+	</a></li>
+	{% endfor %}
+</ul>
+
+
+{% endblock %}
