@@ -78,6 +78,60 @@ body > section
 @import "layouts"
 @import "calendar"
 
+.content.main .albums
+	overflow: auto
+	margin: 0
+	padding: 0
+
+	> li
+		+box-sizing(border-box)
+		width: 50%
+		float: left
+		padding: 0 0 1.5em .75em
+		margin: 0
+		display: block
+
+		a
+			display: block
+
+		img
+			width: 130px
+			height: 130px
+			padding: 2px
+			border: 1px solid #ccc
+			margin-right: 1em
+			float: left
+			display: block
+
+		strong
+			display: block
+			font-size: 1.2em
+			font-weight: normal
+			color: #3B5998
+
+		span
+			color: #999
+			display: block
+			text-decoration: none
+
+		a:hover
+			text-decoration: none
+
+		a:hover strong
+			text-decoration: underline
+
+
+	> li:nth-child(2n+1)
+		padding-left: 0
+		padding-right: .75em
+		text-align: right
+
+		img
+			margin-right: 0
+			margin-left: 1em
+			float: right
+
+
 form.edit-member
 	overflow: auto
 
@@ -139,7 +193,7 @@ form.edit-member
 		padding: 0.3em 0.8em
 		color: #666
 		text-align: right
-		
+
 		select
 			margin-left: .5em
 
