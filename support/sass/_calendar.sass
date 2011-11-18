@@ -2,7 +2,7 @@
 
 table.calendar td ul li
 	&.calendar-1
-		background: red
+		background: #0085cf
 
 nav.calendar-nav
 	ul
@@ -18,20 +18,20 @@ nav.calendar-nav
 			float: left
 			width: 50%
 			text-align: right
-			
+
 		a
 			display: inline-block
 			padding: 1px 5px
 			margin-right: 8%
-			
+
 		li + li
 			text-align: left
 			padding-right: 0
-			
+
 			a
 				margin-right: 0
 				margin-left: 4%
-	
+
 		li + li:before
 			content: "♦"
 			color: #ccc
@@ -54,10 +54,10 @@ table.calendar
 
 	tr:first-child td:first-child
 		+border-top-left-radius(2px)
-	
+
 	tr:first-child td:last-child
 		+border-top-right-radius(2px)
-	
+
 	tr:last-child td:first-child
 		+border-bottom-left-radius(2px)
 
@@ -109,7 +109,7 @@ table.calendar
 			display: block
 			color: #666
 
-	td:not(.empty):hover
+	td:not(:empty):hover
 		background: #fdffe8
 
 		&:hover ul
@@ -118,16 +118,16 @@ table.calendar
 			max-height: 1000px
 			min-width: 104px
 			z-index: 1000
-		
+
 			span
 				display: inline
-		
+
 			li:nth-child(3)
 				display: none
-		
+
 			li:last-child
 				display: block
-		
+
 			li:nth-child(n+4)
 				display: block
 
@@ -141,37 +141,41 @@ table.calendar
 		right: 2px
 		border: 1px solid #fff
 		+border-radius(4px)
-	
+
 		li
 			background: #154B84
 			line-height: 1.4em
 			white-space: nowrap
 			padding: 0 5px
-			
+
+			&.ends
+				opacity: .6
+
+
 			a
 				color: #fff
 				display: block
 				overflow: hidden
 				text-decoration: none
 				padding: 3px 0px
-			
+
 				&:hover
 					text-decoration: underline
 					background: inherit
-		
+
 			&:first-child
 				+border-top-radius(3px)
-		
+
 			&:last-child,
 			&:nth-child(3)
 				+border-bottom-radius(3px)
-		
+
 			& + li
 				border-top: 1px solid #306189
-		
+
 			&:nth-child(n+4)
 				display: none
-		
+
 			&.more
 				text-align: center
 				padding-top: 0
@@ -180,4 +184,64 @@ table.calendar
 				line-height: 12px
 				font-weight: bold
 				font-size: 1.3em
+
+.content .events-details
+	margin: 0 0 1em 0
+	padding: 0
+
+	> li
+		display: block
+		margin: 2em 0 0 0
+		padding: 0
+		border-bottom: 1px solid #ddd
+
+	.event
+		overflow: auto
+
+		h1
+			font-weight: bold
+			color: #555
+			font-size: 1.2em
+			margin: 0
+			padding: .8em
+
+
+		> ul
+			+box-sizing(border-box)
+			width: 40%
+			margin: 0
+			padding: 0
+			border-top: 1px solid #eee
+			float: left
+
+			li
+				padding: .8em 1em
+				display: block
+
+				&.date
+					float: left
+
+				&.time
+					float: left
+					border-left: 1px solid #eee
+
+				&.location
+					border-top: 1px solid #eee
+					clear: both
+
+		> div
+			border-top: 1px solid #eee
+			width: 60%
+			+box-sizing(border-box)
+			padding: .8em 1em
+			float: left
+			border-left: 1px solid #eee
+
+		&:target
+			background: #fefff3
+
+			h1
+				background: #fff
+				color: #333
+
 

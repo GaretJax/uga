@@ -1,0 +1,11 @@
+<article class="event" id="evento-{{ event.event.pk }}">
+	<h1>{{ event.title }}</h1>
+	<ul class="event-meta">
+		<li class="date">{{ event.start.date }}</li>
+		<li class="time">{{ event.start.time }} fino alle {{ event.end.time }}</li>
+		<li class="location">Imprevù Café, Boulevard de Pérolles 93, 1700 Fribourg</li>
+	</ul>
+	<div>
+		{{ event.description }}
+	</div>
+</article>
