@@ -29,11 +29,11 @@ from uga.registration import models
 
 class MembershipInline(admin.TabularInline):
     model = models.Membership
-    
+
 
 class MemberAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'email', 'street', 'street_number', 'is_complete')
-#    list_filter = (IncompleteListFilter,)
+#   list_filter = (IncompleteListFilter,)
     list_editable = ('street', 'street_number')
     inlines = [
         MembershipInline,
@@ -41,11 +41,9 @@ class MemberAdmin(admin.ModelAdmin):
 admin.site.register(models.Member, MemberAdmin)
 
 
-
 class SubscriptionYearAdmin(admin.ModelAdmin):
     pass
 admin.site.register(models.SubscriptionYear, SubscriptionYearAdmin)
-
 
 
 class MembershipAdmin(admin.ModelAdmin):
