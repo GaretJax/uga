@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+
+    <title>{% block title %}{% endblock title %}</title>
+
+    {% block stylesheets -%}
+    <link rel="stylesheet" href="{{ STATIC_URL }}styles/inscriptions/master.css" type="text/css" />
+
+    <!--[if IE 8]>
+    <link rel="stylesheet" href="{{ MEDIA_URL }}styles/inscriptions/ie8.css" type="text/css" />
+    <![endif]-->
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="{{ MEDIA_URL }}styles/inscriptions/ie7.css" type="text/css" />
+    <![endif]-->
+    {%- endblock stylesheets %}
+
+    {% block scripts -%}
+    <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}scripts/jquery-1.6.2.js"></script>
+    <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}scripts/inscriptions.js"></script>
+    {%- endblock scripts %}
+
+    {%- block extrahead %}{% endblock extrahead %}
+</head>
+
+<body class="events-body" id="{% block bodyid %}{% endblock %}">
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-75602-5']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+        })();
+    </script>
+
+    {% block body -%}
+
+    {% block header -%}
+    <header>
+        <h1>UGA E-Manager v1.2</h1>
+    </header>
+    {%- endblock %}
+
+    {% block navigation -%}
+    <nav>
+        <ul>
+            <li id="list-link"><a href="{% url inscriptions.list %}">Lista eventi</a></li>
+            <li id="help-link"><a href="http://forum.uga.ch/viewtopic.php?f=4&amp;t=2525">Aiuto</a></li>
+        </ul>
+    </nav>
+    {%- endblock navigation %}
+
+    {% block content %}{% endblock content %}
+
+    {% block footer -%}
+    <footer></footer>
+    {%- endblock footer %}
+    {%- endblock %}
+</body>
+</html>

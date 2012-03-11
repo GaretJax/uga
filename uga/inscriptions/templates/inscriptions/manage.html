@@ -1,0 +1,64 @@
+{% extends "inscriptions/base.html" %}
+
+{% block title %}Gestione dell'iscrizione a “{{ inscription.list.name }}”{% endblock %}
+
+{% block bodyid %}manage{% endblock %}
+
+{% block content -%}
+    <section>
+        <h1>Iscrizione a “{{ inscription.list.name }}”</h1>
+        
+        {%- if message %}
+        
+        <div class="message">
+            <p>{{ message }}</p>
+        </div>
+        {% else %}
+        {% endif %}
+        
+        {%- if subscription %}
+		<form action="" method="post" accept-charset="utf-8">
+			{% csrf_token %}
+        {%- endif %}
+        <table>
+            <tr>
+                <th class="rank">#</th>
+                <th colspan="2" class="name">Nominativo</th>
+                <th class="status">Stato dell'iscrizione</th>
+                <th></th>
+            </tr>
+            
+            {%- for name in inscription.inscriptionentry_set.all() %}
+            <tr>
+                <td class="rank" title="Posizione in lista. {% if name.enrolled() -%}
+                    La partecipazione di questo nominativo è confermata.
+                {%- elif name.rank() - inscription.list.limit == 1 -%}
+                    Se si libera ancora 1 posto, la partecipazione di questo nominativo verrà confermata.
+                {%- else -%}
+                    Se si liberano ancora {{ name.rank() - inscription.list.limit }} posti, la partecipazione di questo nominativo verrà confermata.
+                {%- endif %}">{{ name.rank() }}</td>
+                <td colspan="2" class="name">{{ name.full_name() }}</td>
+                {% if name.enrolled() -%}
+                <td class="status confirmed">confermato</td>
+                {%- else -%}
+                <td class="status waiting">in attesa</td>
+                {%- endif %}
+                <td><a href="{% url inscriptions.remove inscription_id=inscription.id,auth=inscription.password,name_id=name.id %}" class="button">Rimuovi</a></td>
+            </tr>
+            {%- endfor %}
+            {%- if subscription %}
+            <tr>
+                <td></td>
+                <td class="inputs">{{ subscription.first_name|safe }}</td>
+                <td class="inputs">{{ subscription.last_name|safe }}</td>
+                <td class="errors">{{ error|safe }} {{ subscription.non_form_errors|safe }}</td>
+                <td><button type="submit">Aggiungi</button></td>
+            </tr>
+            {%- endif %}
+        </table>
+    
+        {%- if subscription %}
+        </form>
+        {%- endif %}
+    </section>
+{%- endblock content %}
