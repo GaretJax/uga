@@ -9,6 +9,7 @@ urlpatterns = patterns('',
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('uga.auth.urls', namespace='auth')),
+    url(r'^eventi/', include('uga.inscriptions.urls')),
     url(r'^preview/', include('cms.urls')),
 )
 urlpatterns += staticfiles_urlpatterns()

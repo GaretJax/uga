@@ -165,6 +165,7 @@ INSTALLED_APPS = (
     'uga.calendar',
     'uga.photos',
     'uga.auth',
+    'uga.inscriptions',
 )
 
 CMS_TEMPLATES = (
