@@ -69,7 +69,7 @@ def deploy_prod():
 
 def rundev():
     with lcd(BASE):
-        guard = subprocess.Popen(['Guard'])
+        guard = subprocess.Popen(['bundle', 'exec', 'Guard'])
         try:
             while True:
                 server = subprocess.Popen(['./manage.py', 'runserver'])
