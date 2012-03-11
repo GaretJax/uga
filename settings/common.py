@@ -72,18 +72,14 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(PROJECT_BASE, 'collected-static')
 
 # List of callables that know how to import templates from various sources.
-#JINJA2_TEMPLATE_LOADERS = (
-#    'django.template.loaders.filesystem.Loader',
-#    'django.template.loaders.app_directories.Loader',
-#)
-#
-#JINJA2_DISABLED_APPS = (
-#    'admin', 'admin_doc', 'registration', 'sentry', 'debug_toolbar', 'django_sekizai',
-#)
-#
-#TEMPLATE_LOADERS = (
-#    'coffin.template.loaders.Loader',
-#)
+JINJA2_TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+)
+
+TEMPLATE_LOADERS = (
+    'coffin.template.loaders.Loader',
+)
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.i18n',
@@ -140,8 +136,9 @@ INSTALLED_APPS = (
     'schedule',
     #'mailchimp',
     #'haystack',
-
     # Django cms apps
+
+    'coffin',
     'cms',
     'mptt',
     'menus',
@@ -167,6 +164,17 @@ INSTALLED_APPS = (
     'uga.auth',
     'uga.inscriptions',
 )
+
+#JINJA2_DISABLED_APPS = (
+#    'admin', 'admin_doc', 'registration', 'sentry', 'debug_toolbar', 'django_sekizai',
+#    'cms', 'menu', 'uga'
+#)
+
+JINJA2_DISABLED_TEMPLATES = (
+    r'[^/]+\.html',
+    r'uga/registration',
+    r'(cms|menu|admin|admin_doc)/',)
+
 
 CMS_TEMPLATES = (
     ('index.html', 'Homepage template'),
@@ -230,4 +238,3 @@ LOGGING = {
 
 MAILCHIMP_API_KEY = ''
 MAILING_LIST_ID = ''
-
