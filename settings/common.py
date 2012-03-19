@@ -6,7 +6,7 @@ PROJECT_BASE = os.path.dirname(os.path.dirname(__file__))
 
 gettext = lambda s: s
 
-ADMINS = ()
+ADMINS = []
 
 INTERNAL_IPS = ('127.0.0.1',)
 
@@ -58,11 +58,6 @@ MEDIA_ROOT = os.path.join(PROJECT_BASE, 'media')
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
 MEDIA_URL = '/media/'
-
-# URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
-# trailing slash.
-# Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/media/admin/'
 
 STATICFILES_DIRS = (
     os.path.join(PROJECT_BASE, 'static'),
@@ -165,15 +160,11 @@ INSTALLED_APPS = (
     'uga.inscriptions',
 )
 
-#JINJA2_DISABLED_APPS = (
-#    'admin', 'admin_doc', 'registration', 'sentry', 'debug_toolbar', 'django_sekizai',
-#    'cms', 'menu', 'uga'
-#)
-
 JINJA2_DISABLED_TEMPLATES = (
     r'[^/]+\.html',
-    r'uga/registration',
-    r'(cms|menu|admin|admin_doc)/',)
+    r'uga/(registration|calendar|photos)',
+    r'(cms|menu|admin|admin_doc|registration)/',
+)
 
 
 CMS_TEMPLATES = (

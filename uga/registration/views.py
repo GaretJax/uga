@@ -216,4 +216,3 @@ def enroll(request):
         'page_title': 'Nuova iscrizione',
         'enroll_form': enroll_form,
     }, context_instance=RequestContext(request))
-

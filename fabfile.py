@@ -7,7 +7,10 @@ import os
 import subprocess
 
 from fabric.api import *
+from fabric.contrib.project import rsync_project
 
+
+env.hosts = ['garetjax.info']
 
 
 BASE = os.path.dirname(__file__)
@@ -32,15 +35,6 @@ def _get_current_branch(repository):
         if branch.startswith('*'):
             return branch.split(' ', 1)[-1]
 
-
-
-def _deploy(instance, branch):
-    with lcd(BASE):
-        local('gondor deploy {instance} {branch}'.format(
-                instance=instance, branch=branch))
-
-
-
 def deploy_dev(branch=None):
     """
     Deploys the given branch or the current one if none is provided to the
@@ -50,21 +44,46 @@ def deploy_dev(branch=None):
     _deploy(env.instance_labels['dev'], branch)
 
 
+def upload():
+    REMOTE_KEEP = [
+        'apache2',
+        'bin',
+        'collected-static',
+        'lib',
+        'media'
+    ]
 
-def deploy_staging():
-    """
-    Deploys the develop branch to the staging instance.
-    """
-    _deploy(env.instance_labels['staging'], 'develop')
+    LOCAL_IGNORE = [
+        '.git*',
+        '.DS_Store',
+        '.gondor',
+        '.sass-cache',
+        '.virtualenv',
+        'Gemfile*',
+        'Guardfile',
+        'collected-static',
+        'fabfile.py',
+        'media',
+        'support',
+        '*.pyc',
+        'settings/development.py',
+    ]
+
+    rsync_project(
+        remote_dir='/home/garetjax/webapps/uga_django',
+        local_dir='.',
+        exclude=set(REMOTE_KEEP + LOCAL_IGNORE),
+        delete=True
+    )
 
 
+def restart():
+    run('touch /home/garetjax/webapps/uga_django/myproject.wsgi')
 
-def deploy_prod():
-    """
-    Deploys the master branch to the production instance.
-    """
-    _deploy(env.instance_labels['staging'], 'master')
 
+def push():
+    upload()
+    restart()
 
 
 def rundev():
