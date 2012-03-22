@@ -134,13 +134,24 @@ def edit(request, member_id):
 
 
 @require_cms_permissions
-def export_emails(request):
-    return render_to_response('uga/registration/export_emails.html', {
-        'page_title': 'Esporta indirizzi email',
+def export_data(request):
+    return render_to_response('uga/registration/export_data.html', {
+        'page_title': 'Esportazione dati soci',
         'members': models.Member.objects.all(),
     }, context_instance=RequestContext(request))
 
 
+@require_cms_permissions
+def export_excel(request):
+    response = render_to_response('uga/registration/spreadsheet.html', {
+        'members': models.Member.objects.all(),
+    }, context_instance=RequestContext(request))
+
+    filename = date.today().strftime('soci-%Y-%m-%d.xls')
+    response['Content-Disposition'] = 'attachment; filename=' + filename
+    response['Content-Type'] = 'application/vns.ms-excel; charset=utf-8'
+
+    return response
 
 @require_cms_permissions
 def remove(request, member_id):
