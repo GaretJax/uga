@@ -1,0 +1,130 @@
+@import "compass/utilities/general/reset"
+@import "960/grid.sass"
+@import "compass/utilities/general/clearfix"
+@import "css3"
+
++global-reset
++reset-html5
+
+$ninesixty_gutter_width: 40px
+
+$sans_serif: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "Geneva", "Verdana", "sans-serif"
+$serif: "Palatino", "Palatino Linotype", "Palatino LT STD", "Book Antiqua", "Georgia", "serif"
+
+body
+	font-family: $serif
+	line-height: 1em
+
+header
+	+clearfix
+	background: #333
+	color: #fff
+	padding: 0.4em
+
+	h1
+		margin: 0 auto
+		width: $ninesixty_grid_width - $ninesixty_gutter_width
+		font-family: $sans_serif
+		font-size: 0.6em
+
+body > section
+	+grid-system(16)
+	+pie-clearfix
+	+grid-children
+	margin-top: 0.5em
+	padding-top: 1px
+
+	> h1
+		margin-bottom: 0.9em
+		font-size: 1.5em
+		font-weight: bold
+		width: $ninesixty_grid_width - $ninesixty_gutter_width
+		margin-left: $ninesixty_gutter_width/2
+		margin-right: $ninesixty_gutter_width/2
+
+	> p
+		+grid(16, 16)
+		+pie-clearfix
+
+	> table
+		width: $ninesixty_grid_width - $ninesixty_gutter_width
+		margin-left: $ninesixty_gutter_width/2
+		margin-right: $ninesixty_gutter_width/2
+
+body > nav
+	+grid-system(16)
+	+pie-clearfix
+	+grid-children
+	text-align: right
+
+	ul
+		+grid(16, 16)
+		margin-top: 0.3em
+
+	li
+		line-height: 2em
+		display: inline
+
+	li:last-child
+		margin-right: -0.5em
+
+	a, a:visited
+		color: #102599
+		padding: 0.3em 0.5em 0.2em
+
+#list #list-link a,
+#home #home-link a,
+#help #help-link a
+	font-weight: bold
+	color: #666
+	text-decoration: none
+	background: #FBF7B8
+
+p
+	line-height: 1.5em
+	margin: 1em 0
+	color: #555
+
+table
+	border-collapse: collapse
+	margin: 1em 0
+
+	th, td
+		border: 1px solid #ccc
+		padding: 7px 1em 7px 1em
+		vertical-align: middle
+		line-height: 1.2em
+
+	th
+		background: #eee
+		font-weight: bold
+		color: #333
+		font-family: $sans_serif
+		padding-bottom: 8px
+		font-size: 0.9em
+		border-bottom: 2px solid #999
+		padding-left: 1.2em
+		padding-right: 1.2em
+
+		&:empty
+			background: none
+			border-top: 0
+			border-right: 0
+
+	td
+		color: #333
+
+.placeholder
+	color: #999
+
+body#remove section
+	text-align: center
+
+body#remove nav
+	visibility: hidden
+
+@import list
+@import subscription
+@import manage
+@import buttons
+@import messages

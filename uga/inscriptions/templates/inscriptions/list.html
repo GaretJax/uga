@@ -1,0 +1,49 @@
+{% extends "inscriptions/base.html" %}
+
+{% block title %}Lista eventi{% endblock %}
+
+{% block bodyid %}list{% endblock %}
+
+{% block content -%}
+    <section>
+        <h1>Ticket corner</h1>
+        
+        {%- if message %}
+        <div class="message">
+            <p>{{ message }}</p>
+        </div>
+        {% endif -%}
+        
+        <p>Scegli un evento a cui iscriverti qui sotto e, se le iscrizioni sono già aperte, usa l'apposita funzione per effettuare un'iscrizione.</p>
+        
+        <table>
+            <tr>
+                <th>Evento</th>
+                <th class="start">Apertura iscrizioni</th>
+                <th class="end">Chiusura iscrizioni</th>
+                <th class="places">Posti</th>
+                <th></th>
+            </tr>
+            
+            {%- for e in events %}
+            <tr>
+                <td>{{ e.name }}</td>
+                <td class="start"><time datetime="{{ e.start|date("Y-m-d\TH:i:sO") }}">{{ e.start|date("l j F, H:i")|capitalize() }}</time></td>
+                <td class="end"><time datetime="{{ e.end|date("Y-m-d\TH:i:sO") }}">{{ e.end|date("l j F, H:i")|capitalize() }}</time></td>
+                <td class="places"><span class="taken" title="Posti occupati">{{ e.count() }}</span> / <span class="total" title="Posti totali">{{ e.limit }}</span></td>
+                <td>
+                    {%- if e.open() -%}
+                        <a class="button" title="Iscriviti all'evento “{{ e.name }}”" href="{% url inscriptions.subscribe list_id=e.pk %}">Iscriviti</a>
+                    {%- else -%}
+                        <button disabled="disabled" title="Iscrizioni momentaneamente chiuse">Iscriviti</button>
+                    {%- endif -%}
+                </td>
+            </tr>
+            {%- else -%}
+            <tr>
+                <td colspan="5" class="message">Nessun evento disponibile per nuove registrazioni</td>
+            </tr>
+            {%- endfor %}
+        </table>
+    </section>
+{%- endblock content %}

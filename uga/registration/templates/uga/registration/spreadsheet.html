@@ -1,0 +1,26 @@
+<table>
+	<tr>
+		<th>Nome</th>
+		<th>Cognome</th>
+		<th>Via</th>
+		<th>CAP</th>
+		<th>Città</th>
+		<th>Email</th>
+		<th>Validità tessera</th>
+	</tr>
+	{% for member in members %}
+    <tr>
+		<td>{{ member.first_name }}</td>
+		<td>{{ member.last_name }}</td>
+		<td>{{ member.street }} {{ member.street_number }}</td>
+		<td>{{ member.zip_code }}</td>
+		<td>{{ member.city }}</td>
+		<td>{{ member.email }}</td>
+		<td>
+			{% for mmship in member.membership_set.all %}
+			{{ mmship.year.start.year }}-{{ mmship.year.end.year }} ({{ mmship.date_joined.date }})
+			{% endfor %}
+		</td>
+	</tr>
+	{% endfor %}
+</table>

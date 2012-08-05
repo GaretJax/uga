@@ -1,0 +1,49 @@
+body#manage
+    > section > div, > section > form
+        clear: both
+        padding-left: $ninesixty_gutter_width/2
+        padding-right: $ninesixty_gutter_width/2
+
+    table
+        clear: both
+        margin-top: 2em
+
+    td.name
+        width: 100%
+
+    td, th
+        white-space: nowrap
+
+    .status, .rank
+        text-align: center
+
+    .status.confirmed
+        color: #156D00
+        font-weight: bold
+
+    .status.waiting
+        color: #BF4900
+        font-weight: bold
+
+    button, .button
+        width: 5em
+
+    .inputs
+        padding: 0
+        width: 50%
+        border-right-width: 0
+
+        input
+            +box-sizing(border-box)
+            width: 96%
+            margin-left: 3%
+            font-size: 1.2em
+
+    .inputs + .inputs
+        border-left-width: 0
+        border-right-width: 1
+        text-align: right
+
+        input
+            margin-right: 3%
+            margin-left: 0%

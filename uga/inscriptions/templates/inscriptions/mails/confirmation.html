@@ -1,0 +1,108 @@
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Conferma iscrizione all'evento “{{ event.name }}”</title>
+</head>
+
+<body>
+    <table style="background: #f3f3f3" width="100%" cellspacing="0" cellpadding="0">
+        <tr>
+            <td colspan="3" align="center">
+                <table width="600" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td align="center" class="permission" style="font-size: 11px">
+                            <p style="margin: 15px 10px 0 10px">Hai ricevuto questa email perchè ti sei iscritto ad un evento su <a href="http://{{ site.domain }}/">{{ site.name }}</a>.</p>
+                            <p style="margin: 0 10px 15px 10px">Il messaggio non viene visualizzato correttamente? <a href="http://{{ site.domain }}{{ inscription.get_absolute_url() }}">Accedi alla gestione in linea</a>.</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td align="center">
+                <table style="background: #fff;border: 1px solid #ccc" width="600" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td width="30"></td>
+                        <td align="left">
+                            <p style="margin-top: 25px">Ciao Ughino,</p>
+                            <p>grazie per esserti registrato all'evento <strong>{{ event.name }}</strong>. La tua iscrizione è stata conclusa correttamente!</p>
+                            <p style="margin-bottom: 15px">Questa email contiene un riassunto dei nominativi che hai iscritto ed i collegamenti agli strumenti di gestione in linea dell'iscrizione.</p>
+                        </td>
+                        <td width="30"></td>
+                    </tr>
+                    <tr>
+                        <td width="30"></td>
+                        <td align="left">
+                            <h1 style="font-size: 18px; color:#49080A">Riassunto dell'iscrizione</h1>
+                            <p>Hai iscritto {{ inscription.inscriptionentry_set.count() }} persone all'evento “{{ event.name }}”.</p>
+                            <p>Questo evento prevede un limite massimo di {{ event.limit }} posti.</p>
+                            
+                            <h2 style="font-size: 14px; color:#49080A; margin-top: 20px">Nominativi iscritti</h2>
+                            <table width="100%" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <th style="background: #eee; border: 1px solid #ccc; border-right: 0; padding: 5px 15px;">#</th>
+                                    <th style="background: #eee; border: 1px solid #ccc; border-right: 0; padding: 5px 15px;">Nominativo</th>
+                                    <th style="background: #eee; border: 1px solid #ccc; border-right: 0; padding: 5px 15px;">Stato dell'iscrizione</th>
+                                    <th style="border: 1px solid #ccc; border-right: 0; border-top: 0; padding: 5px 15px;"></th>
+                                </tr>
+
+                                {% for name in inscription.inscriptionentry_set.all() %}
+                                <tr>
+                                    <td align="center" style="border: 1px solid #ccc; border-right: 0; border-top: 0; padding: 6px 15px;" class="rank">{{ name.rank() }}</td>
+                                    <td style="border: 1px solid #ccc; border-right: 0; border-top: 0; padding: 6px 15px;" class="name">{{ name.full_name() }}</td>
+                                    {% if name.enrolled() -%}
+                                    <td align="center" style="border: 1px solid #ccc; border-right: 0; border-top: 0; padding: 6px 15px;" class="status confirmed">confermato</td>
+                                    {%- else -%}
+                                    <td align="center" style="border: 1px solid #ccc; border-right: 0; border-top: 0; padding: 6px 15px;" class="status waiting">in attesa</td>
+                                    {%- endif %}
+                                    <td align="center" style="border: 1px solid #ccc; border-top: 0; padding: 6px 15px;"><a href="http://{{ site.domain }}{% url inscriptions.remove inscription_id=inscription.id,auth=inscription.password,name_id=name.id %}" class="button">Rimuovi</a></td>
+                                </tr>
+                                {% endfor -%}
+                            </table>
+
+                            <h2 style="font-size: 14px; color:#49080A; margin-top: 20px">Stati possibili</h2>
+                            <table width="100%" cellspacing="0" cellpadding="0" style="margin-bottom: 15px;">
+                                <tr>
+                                    <td valign="top" align="right"><p style="margin: 5px 10px 5px 5px"><em>confermato</em></p></td>
+                                    <td valign="top"><p style="margin: 5px">La registrazione è giunta entro il limite di posti disponibili ed è stata accettata.</p></td>
+                                </tr>  
+                                <tr>   
+                                    <td valign="top" align="right"><p style="margin: 5px 10px 5px 5px"><em>in attesa</em></p></td>
+                                    <td valign="top"><p style="margin: 5px">Purtroppo non ci sono più posti disponibili per questo evento. Sei comunque stato posto in lista d'attesa e verrai avvisato nel caso si liberassero dei posti.</p></td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td width="30"></td>
+                    </tr>
+                    <tr>
+                        <td width="30"></td>
+                        <td align="left">
+                            <h1 style="font-size: 18px; color:#49080A;">Gestione dell'iscrizione</h1>
+                            <p>Nel caso alcuni dei nominativi della tua iscrizione siano in attesa e si dovessero liberare abbastanza posti da permetterene la partecipazione all'evento, riceverai un'ulteriore mail contenente le informazioni aggiornate.</p>
+                            <p>È comunque possibile controllare in ogni momento lo stato delle tue iscrizioni (così come rimuovere dei nominativi da te iscritti) direttamente sul nostro sito web accedendo alla <a href="http://{{ site.domain }}{{ inscription.get_absolute_url() }}">gestione in linea</a>.</p>
+                            <p>Se avessi altre domande o richieste non esitare a <a href="mailto:mail@uga.ch">contattarci</a> indicando le informazioni relative alla tua iscrizione.</p>
+                        </td>
+                        <td width="30"></td>
+                    </tr>
+                    <tr>
+                        <td width="30"></td>
+                        <td align="left">
+                            <p style="margin-bottom: 20px">Grazie,<br />il <em>ComitUGA</em></p>
+                        </td>
+                        <td width="30"></td>
+                    </tr>
+                </table>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td align="center">
+                <p style="margin: 10px 10px 15px 10px;font-size: 10px;"><a style="color: #666;" href="http://{{ site.domain }}/">Universitari Gaudenti Associati</a></p>
+            </td>
+            <td></td>
+        </tr>
+    </table>
+</body>
+</html>

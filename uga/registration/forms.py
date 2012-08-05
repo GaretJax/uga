@@ -47,4 +47,3 @@ class EnrollForm(EditForm):
     # Additional fields
     subscription = forms.ModelChoiceField(
             queryset=models.SubscriptionYear.objects.all())
-

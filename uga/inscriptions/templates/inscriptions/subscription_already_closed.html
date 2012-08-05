@@ -1,0 +1,17 @@
+{% extends "inscriptions/base.html" %}
+
+{% block title %}Iscrizioni all'evento “{{ event.name }}” già chiuse{% endblock %}
+
+{% block bodyid %}closed{% endblock %}
+
+{% block content -%}
+    <section>
+        <h1>Iscrizioni chiuse</h1>
+        
+        <p>Ci dispiace, purtroppo le iscrizioni all'evento “{{ event.name }}” sono già chiuse.</p>
+        
+        <div>
+            <a class="button" href="{% url inscriptions.list %}">Torna alla lista eventi &rarr;</a>
+        </div>
+    </section>
+{%- endblock content %}

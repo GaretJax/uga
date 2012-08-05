@@ -1,0 +1,22 @@
+{% extends "inscriptions/base.html" %}
+
+{% block title %}Conferma rimozione “{{ entry.full_name() }}”{% endblock %}
+
+{% block bodyid %}remove{% endblock %}
+
+{% block content -%}
+    <section>
+        <h1>Conferma rimozione nominativo</h1>
+        
+        <p>Sei sicuro di voler rimuovere il nominativo “{{ entry.full_name() }}” dalla tua iscrizione a “{{ inscription.list.name }}”?</p>
+        
+        {%- if inscription.inscriptionentry_set.count() == 1 %}
+        <p>Questo è l'ultimo nominativo di questa iscrizione, se rimuovi questo nominativo<br />la tua iscrizione verrà annullata completamente.</p>
+        {%- endif %}
+        
+        <div>
+            <a class="button" href="{% url inscriptions.manage inscription_id=inscription.pk,auth=inscription.password %}">No, annulla</a>
+            <a class="button" href="?confirmed">Si, rimuovi</a>
+        </div>
+    </section>
+{%- endblock content %}

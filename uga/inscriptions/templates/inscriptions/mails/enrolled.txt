@@ -1,0 +1,28 @@
+Ciao Ughino,
+
+si è appena liberato un posto per l'evento “{{ event.name }}” e siamo quindi
+felici di poterti confermare la partecipazione di:
+
+    {{ enrolled.full_name() }}
+
+
+Gestione dell'iscrizione
+========================
+
+Nel caso alcuni dei nominativi della tua iscrizione siano ancora in attesa e
+si dovessero liberare abbastanza posti da permetterene la partecipazione
+all'evento, riceverai un'ulteriore mail simile a questa contenente
+le informazioni aggiornate.
+
+Ti ricordiamo che è comunque possibile controllare in ogni momento lo stato
+delle tue iscrizioni (così come rimuovere dei nominativi da te iscritti)
+direttamente sul nostro sito web accedendo tramite il collegamento seguente:
+
+    http://uga.ch{% url inscriptions.manage inscription_id=inscription.pk,auth=inscription.password %}
+
+Se avessi altre domande o richieste non esitare a contattarci all'indirizzo
+mail@uga.ch indicando le informazioni relative alla tua iscrizione.
+
+
+Grazie,
+il ComitUGA

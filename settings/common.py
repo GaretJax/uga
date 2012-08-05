@@ -6,7 +6,7 @@ PROJECT_BASE = os.path.dirname(os.path.dirname(__file__))
 
 gettext = lambda s: s
 
-ADMINS = ()
+ADMINS = []
 
 INTERNAL_IPS = ('127.0.0.1',)
 
@@ -59,11 +59,6 @@ MEDIA_ROOT = os.path.join(PROJECT_BASE, 'media')
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
 MEDIA_URL = '/media/'
 
-# URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
-# trailing slash.
-# Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/media/admin/'
-
 STATICFILES_DIRS = (
     os.path.join(PROJECT_BASE, 'static'),
 )
@@ -72,18 +67,14 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(PROJECT_BASE, 'collected-static')
 
 # List of callables that know how to import templates from various sources.
-#JINJA2_TEMPLATE_LOADERS = (
-#    'django.template.loaders.filesystem.Loader',
-#    'django.template.loaders.app_directories.Loader',
-#)
-#
-#JINJA2_DISABLED_APPS = (
-#    'admin', 'admin_doc', 'registration', 'sentry', 'debug_toolbar', 'django_sekizai',
-#)
-#
-#TEMPLATE_LOADERS = (
-#    'coffin.template.loaders.Loader',
-#)
+JINJA2_TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+)
+
+TEMPLATE_LOADERS = (
+    'coffin.template.loaders.Loader',
+)
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.i18n',
@@ -140,8 +131,9 @@ INSTALLED_APPS = (
     'schedule',
     #'mailchimp',
     #'haystack',
-
     # Django cms apps
+
+    'coffin',
     'cms',
     'mptt',
     'menus',
@@ -165,7 +157,15 @@ INSTALLED_APPS = (
     'uga.calendar',
     'uga.photos',
     'uga.auth',
+    'uga.inscriptions',
 )
+
+JINJA2_DISABLED_TEMPLATES = (
+    r'[^/]+\.html',
+    r'uga/(registration|calendar|photos)',
+    r'(cms|menu|admin|admin_doc|registration)/',
+)
+
 
 CMS_TEMPLATES = (
     ('index.html', 'Homepage template'),
@@ -229,4 +229,3 @@ LOGGING = {
 
 MAILCHIMP_API_KEY = ''
 MAILING_LIST_ID = ''
-

@@ -35,8 +35,5 @@ def ____():
 
     fu = urllib.urlopen(url)
     xml = fu.read()
-    print xml
     albums = ElementTree.fromstring(xml)
     fu.close()
-
-

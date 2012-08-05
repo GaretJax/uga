@@ -1,0 +1,50 @@
+@import css3
+
+button, .button
+    +border-radius(3px)
+    +box-sizing(content-box)
+    font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "Geneva", "Verdana", "sans-serif"
+    padding: 0.5em 1.5em
+    margin: 0
+    font-size: 0.7em
+    line-height: 1.6em
+    display: inline-block
+    color: #fff
+    border: 1px solid #9A0B0E
+    border-bottom: 1px solid #670000
+    background: #B00000
+    background: -webkit-gradient(linear, left top, left bottom, from(#D70C06), to(#86211D))
+    background: -moz-linear-gradient(270deg, #D70C06, #86211D)
+    text-shadow: 0px -1px 0px #670000
+    cursor: pointer
+    text-decoration: none
+    text-align: center
+
+button:not([disabled]), .button:not(.disabled)
+    &:hover
+        +box-shadow("0px 0px 16px rgba(0, 0, 0, 0.15)")
+
+        background: #CD221F
+        background: -webkit-gradient(linear, left top, left bottom, from(#CD221F), to(#730000))
+        background: -moz-linear-gradient(270deg, #CD221F, #730000)
+
+    &:active
+        background: #86211D
+        background: -webkit-gradient(linear, left top, left bottom, from(#86211D), to(#D70C06))
+        background: -moz-linear-gradient(270deg, #86211D, #D70C06)
+
+    &:focus
+        outline-offset: -1px
+        outline: auto 5px -webkit-focus-ring-color
+
+button[disabled], .button.disabled
+    opacity: 0.3
+    cursor: default
+    border-color: #5A1E1F
+    background: -webkit-gradient(linear, left top, left bottom, from(#CD4B48), to(#734745))
+
+button + button,
+button + .button,
+.button + button,
+.button + .button
+    margin-left: 1em

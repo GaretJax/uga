@@ -2,6 +2,8 @@ from django.conf.urls.defaults import *
 from django.conf import settings
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.views.generic.simple import redirect_to
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -9,7 +11,9 @@ urlpatterns = patterns('',
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('uga.auth.urls', namespace='auth')),
-    url(r'^', include('cms.urls')),
+    url(r'^$',redirect_to, {'url': '/eventi/', 'permanent': False}),
+    url(r'^eventi/', include('uga.inscriptions.urls')),
+    url(r'^preview/', include('cms.urls')),
 )
 urlpatterns += staticfiles_urlpatterns()
 
@@ -24,4 +28,3 @@ if settings.DEBUG:
         }),
         url(r'^' + settings.MEDIA_URL.lstrip('/'), include('appmedia.urls')),
    )
-

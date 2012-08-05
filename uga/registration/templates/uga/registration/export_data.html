@@ -6,6 +6,8 @@
 
 {% addtoblock "js" %}<script src="{{ STATIC_URL }}scripts/forms.js"></script>{% endaddtoblock %}
 
+    <a href="{% url export_excel %}">Esporta in formato excel</a>
+
 	<h2>Nominativi (Tab Delimited)</h2>
 	<textarea class="autosize max">{% for member in members %}
 {{ member.first_name }}	{{ member.last_name }}	{{ member.email }}{% endfor %}</textarea>
