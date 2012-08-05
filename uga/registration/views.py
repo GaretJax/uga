@@ -185,10 +185,6 @@ def remove(request, member_id):
     }, context_instance=RequestContext(request))
 
 
-def renew_qrcode(request, random_id):
-    pass
-
-
 @require_cms_permissions
 def enroll(request):
     today = date.today()
