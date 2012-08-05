@@ -14,7 +14,7 @@ PORT = 8000
 
 SEND_BROKEN_LINK_EMAILS = True
 
-IGNORABLE_404_ENDS = ['favicon.ico','favicon.png',]
+IGNORABLE_404_ENDS = ['favicon.ico','favicon.png','robots.txt',]
 
 MANAGERS = ADMINS
 
@@ -163,7 +163,7 @@ INSTALLED_APPS = (
 JINJA2_DISABLED_TEMPLATES = (
     r'[^/]+\.html',
     r'uga/(registration|calendar|photos)',
-    r'(cms|menu|admin|admin_doc|registration)/',
+    r'(cms|menu|auth|admin|admin_doc|registration)/',
 )
 
 
