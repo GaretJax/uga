@@ -1,0 +1,26 @@
+{% load qrcode %}
+Ciao {{ member.first_name }},
+
+ricevi questa e-mail perché hai appena inserito i tuoi dati sul nostro sito.
+
+Come puoi vedere, questa e-mail contiene un codice QR (sì é quel disegnino
+lì bianco e nero :-D). Stampa questo codice o tieni la mail sullo smartphone.
+Quando avrai la possiblità di pagare la quota d’iscrizione (alla journée
+d’accueil, all’apero o ad una delle nostre feste) mostrandoci il codice in
+un nanosecondo avremo sotto mano i tuoi dati d’iscrizione (nome, cognome e
+indirizzo e-mail). In questo modo guadagnerai tempo prezioso da impegare in
+modo più proficuo (bere tre sorsi di birra in più, per esempio) e noi ci
+risparmieremo le fiacche sui polpastrelli a furia di pigiare sui tasti del
+computer i dati delle numerose (sperem o_O) iscrizioni (mamma mia se siamo
+pigri eh??? :-D).
+
+Dicevamo dunque… ah si, il tuo codice QR! Visto che stai guardando questa
+mail in formato testo, dovrai aprire il seguente indirizzo nel tuo browser,
+il codice QR apparirà come per magia (eh si, magia):
+
+{{ member.get_renew_url|qrcode_url:'150x150' }}
+
+Onorati di averti presto tra di noi!
+
+Con tanto ammmore,
+Mamma UGA

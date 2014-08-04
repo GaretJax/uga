@@ -1,12 +1,14 @@
 $ ->
 	$('p > textarea').wrap('<div class="textarea"></div>')
 	
+	
 	$('form > p > input, form > p > textarea, form > p > select').focus ->
 		$(this).parent().addClass('focus')
 	.blur ->
 		$(this).parent().removeClass('focus')
 	.parent().click ->
 		$('input, textarea', this).focus()
+	
 	
 	$('form > p > label > input[type=checkbox]').focus ->
 		$(this).parent().parent().addClass('focus')
@@ -16,9 +18,9 @@ $ ->
 		e.stopImmediatePropagation()
 	.parent().click (e) ->
 		e.stopImmediatePropagation()
-	.parent().parent().click ->
+	.parent().click ->
 		$('input', this).attr('checked', (index, val) -> not val)
-
+	
 	$('fieldset.composite p > input, fieldset.composite p > textarea, fieldset.composite p > select').focus ->
 		$(this).closest('fieldset.composite').addClass('focus')
 	.blur ->
@@ -27,7 +29,7 @@ $ ->
 		if $.inArray(e.target.nodeName, ['INPUT', 'TEXTAREA', 'LABEL']) >= 0
 			return
 		$('input, textarea', this).first().focus()
-
+		
 	$('button').click (e) ->
 		e.stopPropagation()
 
@@ -59,7 +61,7 @@ $ ->
 		if errors.size()
 			$('.errorlist', this).remove()
 			$(this).before(errorlist)
-	
+
 	$('button, a.button').wrapInner('<span/>')
 	
 	# Autosize textareas to fit content

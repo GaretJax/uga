@@ -40,6 +40,25 @@ class SubscriptionDeletionForm(forms.Form):
 
 
 
+class AnnounceForm(forms.ModelForm):
+
+    mailing_list = forms.BooleanField(required=False)
+
+    def __init__(self, *args, **kwargs):
+        super(AnnounceForm, self).__init__(*args, **kwargs)
+
+        self.fields['first_name'].required = True
+        self.fields['last_name'].required = True
+
+    def validate_unique(self):
+        pass
+
+    class Meta:
+        model = models.Member
+        exclude = ['city', 'zip_code', 'street', 'street_number']
+
+
+
 class EnrollForm(EditForm):
 
     mailing_list = forms.BooleanField(required=False)

@@ -1,8 +1,12 @@
 import operator
+import os
 
 from django.db import models
 from django.db.models import Q
+from django.core.urlresolvers import reverse
+from django.contrib.sites.models import Site
 
+from datetime import date
 
 
 class IncompleteMemberManager(models.Manager):
@@ -31,12 +35,37 @@ class IncompleteMemberManager(models.Manager):
         return self.filter(~self._get_completion_query())
 
 
+class ActiveMemberManager(models.Manager):
+    def get_query_set(self):
+        today = date.today()
+
+        return super(ActiveMemberManager, self).get_query_set().filter(
+            membership__year__start__lt=today,
+            membership__year__end__gt=today
+        )
+
+
+class InactiveMemberManager(models.Manager):
+    def get_query_set(self):
+        today = date.today()
+
+        return super(InactiveMemberManager, self).get_query_set().exclude(
+            membership__year__start__lt=today,
+            membership__year__end__gt=today
+        )
+
+
+def generate_random_hash():
+    return os.urandom(32).encode('hex')
+
 
 class Member(models.Model):
     """
     A single member of the association.
     """
     objects = IncompleteMemberManager()
+    active = ActiveMemberManager()
+    inactive = InactiveMemberManager()
 
     email = models.EmailField(blank=False, unique=True)
     first_name = models.CharField(max_length=255, blank=True, null=True)
@@ -45,6 +74,7 @@ class Member(models.Model):
     street_number = models.PositiveSmallIntegerField(blank=True, null=True)
     zip_code = models.PositiveSmallIntegerField(blank=True, null=True)
     city = models.CharField(max_length=255, blank=True, null=True)
+    uuid = models.CharField(max_length=64, unique=True, editable=False, default=generate_random_hash)
 
     def get_full_name(self):
         return u'{0} {1}'.format(self.first_name, self.last_name)
@@ -65,9 +95,24 @@ class Member(models.Model):
         else:
             return city
 
+    def is_active(self):
+        today = date.today()
+        return bool(self.membership_set.filter(
+            year__start__lt=today
+        ).filter(
+            year__end__gt=today
+        ).count())
+    is_active.boolean = True
+
     def is_complete(self):
         return self.__class__.objects._get_completion_status(self)
     is_complete.boolean = True
+
+    def get_renew_url(self):
+        return 'http://{}{}'.format(
+            Site.objects.get_current().domain,
+            reverse('renew_member', kwargs={'uuid': self.uuid})
+        )
 
     class Meta:
         permissions = (

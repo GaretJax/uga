@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Conferma iscrizione all'evento “{{ event.name }}”</title>
+    <title>Conferma iscrizione all'evento “{{ event.event.title }}”</title>
 </head>
 
 <body>
@@ -26,7 +26,7 @@
                         <td width="30"></td>
                         <td align="left">
                             <p style="margin-top: 25px">Ciao Ughino,</p>
-                            <p>grazie per esserti registrato all'evento <strong>{{ event.name }}</strong>. La tua iscrizione è stata conclusa correttamente!</p>
+                            <p>grazie per esserti registrato all'evento <strong>{{ event.event.title }}</strong>. La tua iscrizione è stata conclusa correttamente!</p>
                             <p style="margin-bottom: 15px">Questa email contiene un riassunto dei nominativi che hai iscritto ed i collegamenti agli strumenti di gestione in linea dell'iscrizione.</p>
                         </td>
                         <td width="30"></td>
@@ -35,7 +35,7 @@
                         <td width="30"></td>
                         <td align="left">
                             <h1 style="font-size: 18px; color:#49080A">Riassunto dell'iscrizione</h1>
-                            <p>Hai iscritto {{ inscription.inscriptionentry_set.count() }} persone all'evento “{{ event.name }}”.</p>
+                            <p>Hai iscritto {{ inscription.inscriptionentry_set.count() }} persone all'evento “{{ event.event.title }}”.</p>
                             <p>Questo evento prevede un limite massimo di {{ event.limit }} posti.</p>
                             
                             <h2 style="font-size: 14px; color:#49080A; margin-top: 20px">Nominativi iscritti</h2>
@@ -51,7 +51,7 @@
                                 <tr>
                                     <td align="center" style="border: 1px solid #ccc; border-right: 0; border-top: 0; padding: 6px 15px;" class="rank">{{ name.rank() }}</td>
                                     <td style="border: 1px solid #ccc; border-right: 0; border-top: 0; padding: 6px 15px;" class="name">{{ name.full_name() }}</td>
-                                    {% if name.enrolled() -%}
+                                    {% if name.enrolled(update=True) -%}
                                     <td align="center" style="border: 1px solid #ccc; border-right: 0; border-top: 0; padding: 6px 15px;" class="status confirmed">confermato</td>
                                     {%- else -%}
                                     <td align="center" style="border: 1px solid #ccc; border-right: 0; border-top: 0; padding: 6px 15px;" class="status waiting">in attesa</td>

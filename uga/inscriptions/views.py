@@ -1,27 +1,16 @@
 # -*- coding: UTF-8 -*-
 
-from datetime import datetime
-
-from uga.inscriptions.shortcuts import render_to_response as render
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponseRedirect
-from django.db import transaction, IntegrityError
-from django.core.urlresolvers import reverse
+from django.shortcuts import get_object_or_404, render, redirect
 from django.forms.util import ErrorList
+from django.db import IntegrityError, transaction
+from django.utils import timezone as tz
 
 from models import List, Inscription, InscriptionEntry
 from forms import InscriptionEntryFormSet, InscriptionForm, InscriptionEntryForm
 
-import signals
-import utils
+from . import utils, signals
+from django.contrib import messages
 
-def get_and_delete_message(request):
-    if 'message' in request.session:
-        message = request.session['message']
-        del request.session['message']
-        return message
-
-    return ''
 
 def remove(request, inscription_id, auth, name_id):
     ins = get_object_or_404(Inscription, pk=inscription_id, password=auth)
@@ -34,21 +23,19 @@ def remove(request, inscription_id, auth, name_id):
 
         if ins.inscriptionentry_set.count() == 0:
             ins.delete()
-            request.session['message'] = u"La tua iscrizione all'evento “%s” è stata correttamente rimossa dal sistema." % (ins.list.name)
-            return HttpResponseRedirect(reverse('inscriptions.list'))
+            messages.add_message(request, messages.INFO,
+                    u"La tua iscrizione all'evento “{}” è stata correttamente rimossa dal sistema.".format(ins.list.event.title))
+            return redirect('inscriptions.list')
         else:
-            request.session['message'] = u"Il nominativo “%s” é stato correttamente rimosso dalla tua iscrizione." % (entry.full_name())
+            messages.add_message(request, messages.INFO,
+                    u"Il nominativo “{}” é stato correttamente rimosso dalla tua iscrizione.".format(entry.full_name()))
+            return redirect('inscriptions.manage', inscription_id=ins.pk, auth=ins.password)
 
-            return HttpResponseRedirect(reverse(
-                'inscriptions.manage', kwargs={
-                    'inscription_id': ins.pk,
-                    'auth': ins.password,
-                }))
-
-    return render('inscriptions/confirm_remove.html', {
+    return render(request, 'inscriptions/confirm_remove.html', {
         'inscription': ins,
         'entry': entry,
-    }, request)
+    })
+
 
 def manage(request, inscription_id, auth):
     ins = get_object_or_404(Inscription, pk=inscription_id, password=auth)
@@ -60,12 +47,9 @@ def manage(request, inscription_id, auth):
 
             if form.is_valid():
                 ins.add_name(form.cleaned_data['first_name'], form.cleaned_data['last_name'])
-                request.session['message'] = u"Il nominativo “%s %s” é stato correttamente aggiunto alla tua iscrizione." % (form.cleaned_data['first_name'], form.cleaned_data['last_name'])
-                return HttpResponseRedirect(reverse(
-                    'inscriptions.manage', kwargs={
-                        'inscription_id': ins.pk,
-                        'auth': ins.password,
-                    }))
+                messages.add_message(request, messages.INFO,
+                    u"Il nominativo “{} {}” é stato correttamente aggiunto alla tua iscrizione.".format(form.cleaned_data['first_name'], form.cleaned_data['last_name']))
+                return redirect('inscriptions.manage', inscription_id=ins.pk, auth=ins.password)
             else:
                 if 'first_name' in form.errors:
                     error = form.errors['first_name']
@@ -76,41 +60,33 @@ def manage(request, inscription_id, auth):
     else:
         form = None
 
-    return render('inscriptions/manage.html', {
+    return render(request, 'inscriptions/manage.html', {
         'inscription': ins,
         'subscription': form,
         'error': error,
-        'message': get_and_delete_message(request),
-    }, request)
+    })
+
 
 def list_events(request):
-    return render('inscriptions/list.html', {
-        'events': List.objects.exclude(end__lte=datetime.now()),
-        'message': get_and_delete_message(request),
-    }, request)
+    return render(request, 'inscriptions/list.html', {
+        'events': List.objects.exclude(end__lte=tz.now()),
+    })
 
-@transaction.commit_manually
+
 def subscribe(request, list_id):
-    print "Entering"
     e = get_object_or_404(List, pk=int(list_id))
 
-    if e.start > datetime.now():
-        transaction.rollback()
-        ret = render('inscriptions/subscription_not_yet_opened.html', {
+    # Assert that list is open
+    if e.start > tz.now():
+        return render(request, 'inscriptions/subscription_not_yet_opened.html', {
             'event': e,
-        }, request)
-        transaction.commit()
-        return ret
-    elif e.end and e.end < datetime.now():
-        transaction.rollback()
-        ret = render('inscriptions/subscription_already_closed.html', {
+        })
+    elif e.end and e.end < tz.now():
+        return render(request, 'inscriptions/subscription_already_closed.html', {
             'event': e,
-        }, request)
-        transaction.commit()
-        return ret
+        })
 
     if request.method == 'POST':
-        print "POSTING"
         formset = InscriptionEntryFormSet(e.rate, request.POST)
         form = InscriptionForm(request.POST)
 
@@ -119,55 +95,31 @@ def subscribe(request, list_id):
             inscription.list = e
 
             try:
+                tid = transaction.savepoint()
                 inscription.save()
             except IntegrityError:
+                transaction.savepoint_rollback(tid)
+
                 # Handle duplicate email addresses
                 if 'contact' not in form._errors:
                     form._errors['contact'] = ErrorList()
 
                 form._errors['contact'].append(u"Questo indirizzo email è già stato utilizzato per un'altra iscrizione.")
-
-                transaction.rollback()
-            except Exception:
-                transaction.rollback()
-                raise
             else:
-                try:
-                    utils.save_entries(formset, inscription)
-                except Exception:
-                    print "EX"
-                    transaction.rollback()
-                    raise
-                else:
-                    transaction.commit()
-                    try:
-                        signals.enrollment_added.send(sender=Inscription, event=e, inscription=inscription)
-                    except Exception:
-                        print "Mail was not sent"
+                transaction.savepoint_commit(tid)
+                utils.save_entries(formset, inscription)
+                signals.enrollment_added.send(sender=Inscription,
+                        event=e, inscription=inscription)
+                messages.add_message(request, messages.INFO,
+                        u"Complimenti, la tua iscrizione all'evento “{}” é stata conclusa con successo, fra poco riceverai un'email all'indirizzo “{}” con il riassunto dell'iscrizione.".format(e.event.title, inscription.contact))
 
-                    request.session['message'] = u"Complimenti, la tua iscrizione all'evento “%s” é stata conclusa con successo, fra poco riceverai un'email all'indirizzo “%s” con il riassunto dell'iscrizione." % (e.name, inscription.contact)
-
-                    response = HttpResponseRedirect(reverse(
-                        'inscriptions.manage', kwargs={
-                            'inscription_id': inscription.pk,
-                            'auth': inscription.password,
-                        }))
-
-                    transaction.commit()
-
-                    return response
-
+                return redirect('inscriptions.manage', inscription_id=inscription.pk, auth=inscription.password)
     else:
-        transaction.rollback()
         formset = InscriptionEntryFormSet(e.rate)
         form = InscriptionForm()
 
-    res = render('inscriptions/subscription_form.html', {
+    return render(request, 'inscriptions/subscription_form.html', {
         'subscription_formset': formset,
         'inscription_form': form,
         'event': e,
-    }, request)
-
-    transaction.commit()
-
-    return res
+    })

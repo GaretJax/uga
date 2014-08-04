@@ -1,0 +1,141 @@
+#ticketcorner-list .table,
+#ticketcorner-manage .table
+	width: 651px
+
+.content table.ticketcorner-events,
+.content table.ticketcorner-inscriptions
+	width: 768px
+
+	input
+		width: 100%
+
+	.rank
+		text-align: center
+
+	th:last-child
+		background: none
+		border-top: 0
+		border-right: 0
+		border-bottom: 0
+
+	td:last-child
+		width: 100px
+		padding-left: 8px
+		border: 0
+
+		a, button
+			width: 100%
+			margin: 0
+
+		button[disabled]
+			visibility: hidden
+
+	.errorlist, .errorlist li
+		padding: 0
+		margin: 0
+		border: 0
+		background: 0
+
+
+	//tr:last-child
+		td:last-child
+			border-bottom: 1px solid #ddd
+
+#ticketcorner-remove-inscription,
+#ticketcorner-closed,
+#ticketcorner-opened
+	.content
+		> p, > div
+			text-align: center
+
+			.button + .button
+				margin-left: 0.5em
+
+#ticketcorner-inscription
+	fieldset
+		padding-top: 1em
+
+		legend
+			font-weight: bold
+			font-size: 1.2em
+
+	fieldset.contact
+		float: left
+		width: 250px
+
+		input
+			width: 100%
+
+		.errorlist
+			padding: 0.6em 0 0
+			border: 0
+			background: 0
+
+			li
+				margin: 0
+
+
+	fieldset.names
+		float: right
+		width: 480px
+
+		.table
+			border: 0
+			padding: 0
+
+		table
+			border-collapse: collapse
+
+			td
+				border: 0
+				padding: 0 .5em .5em 0
+				border-bottom: 1px solid #ddd
+
+			.first, .name
+				width: 150px
+
+				input
+					width: 100%
+
+			tr + tr
+				td
+					padding-top: .5em
+
+			.error
+				width: 150px
+				background: none
+
+				ul, li
+					background: none
+					display: inline
+					padding: 0
+					margin: 0
+					border: 0
+
+				li
+					font-size: 0.8em
+
+		.table + p.error
+			color: #99292C
+			background: 0
+			padding: 0.6em 0 0
+
+	p.help
+		margin: .3em 0 0
+		padding: 0
+		line-height: 1.5em
+		color: #666
+		text-align: left
+		font-size: .9em
+		border: 0
+
+	p.help + p.help
+		margin: 0
+
+	form > div
+		padding-top: 1em
+		padding-left: 287px
+		clear: both
+
+		button
+			margin: 0 .5em 0 0

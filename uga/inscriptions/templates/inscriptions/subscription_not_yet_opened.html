@@ -1,0 +1,12 @@
+{% extends "inscriptions/base.html" %}
+
+{% block page_title %}Iscrizioni all'evento “{{ event.event.title }}” non ancora aperte{% endblock %}
+
+{% block bodyid %}ticketcorner-opened{% endblock %}
+
+{% block main-content %}
+<p>Ci dispiace, purtroppo le iscrizioni all'evento “{{ event.event.title }}” non sono ancora aperte.</p>
+<div>
+	<a class="button" href="{% url inscriptions.list %}"><span>Torna alla lista eventi &rarr;</span></a>
+</div>
+{% endblock %}

@@ -1,14 +1,16 @@
 {% extends "inscriptions/base.html" %}
 
-{% block title %}Iscrizione a “{{ event.name }}”{% endblock %}
+{% block page_title %}Iscrizione a “{{ event.event.title }}”{% endblock %}
 
-{% block bodyid %}inscription{% endblock %}
+{% block bodyid %}ticketcorner-inscription{% endblock %}
 
-{% block content -%}
-<section>
-<h1>Iscrizione a “{{ event.name }}”</h1>
+{% block additional_breadcrumbs %}
+<li><a href="{% url inscriptions.subscribe list_id=event.pk %}">Iscrizione a “{{ event.event.title }}”</a></li>
+{% endblock %}
 
-<p>Per iscriverti all'evento “{{ event.name }}” riempi il formulario sottostante. Ricorda che inviando il formulario verrai
+{% block main-content %}
+
+<p>Per iscriverti all'evento “{{ event.event.title }}” riempi il formulario sottostante. Ricorda che inviando il formulario verrai
 in primo luogo aggiunto alla lista d'attesa relativa all'evento e, posti disponibili permettendo, ti verrà anche
 confermata l'effettiva iscrizione.</p>
 
@@ -21,10 +23,10 @@ richiesta d'iscrizione.</p>
 	<fieldset class="contact">
 		<legend>Pt. 1: Contatto per l'iscrizione</legend>
 
-		{{ inscription_form.contact|safe }}
+		{{ inscription_form.contact }}
 
-		{{- inscription_form.non_form_errors|safe }}
-		{{- inscription_form.contact.errors|safe }}
+		{{ inscription_form.non_form_errors }}
+		{{ inscription_form.contact.errors }}
 
 		<p class="help">Inserisci un indirizzo email valido.<br />Questo indirizzo
 		verrà usato per confermare la tua richiesta d'iscrizione.</p>
@@ -34,18 +36,18 @@ richiesta d'iscrizione.</p>
 		<legend>Pt. 2: Nominativi degli iscritti</legend>
 
 		<table id="names">
-			{%- for f in subscription_formset.forms %}
+			{% for f in subscription_formset.forms %}
 			<tr>
 				<td class="first">{{ f.first_name|safe }}</td>
 				<td class="name">{{ f.last_name|safe }}</td>
 				<td class="error">{{ f.first_name.errors|safe }} {{ f.last_name.errors|safe }}</td>
 			</tr>
-			{%- endfor %}
+			{% endfor %}
 		</table>
 
-		{% for error in subscription_formset.non_form_errors() -%}
+		{% for error in subscription_formset.non_form_errors %}
 		<p class="error">{{ error }}</p>
-		{% endfor -%}
+		{% endfor %}
 
 		<p class="help">Inserisci i nominativi delle persone che vuoi iscrivere all'evento, <strong>incluso te stesso</strong>.</p>
 		<p class="help">Puoi iscrivere al massimo {{ event.rate }} persone per ogni indirizzo email.</p>
@@ -54,9 +56,9 @@ richiesta d'iscrizione.</p>
 	{{ subscription_formset.management_form|safe }}
 
 	<div>
-		<button type="reset">Reimposta</button>
-		<button type="submit">Invia</button>
+		<button type="reset"><span>Reimposta</span></button>
+		<button type="submit"><span>Invia</span></button>
 	</div>
 </form>
-</section>
-{%- endblock %}
+
+{% endblock %}

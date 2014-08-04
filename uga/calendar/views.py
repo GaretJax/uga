@@ -1,6 +1,5 @@
-from django.shortcuts import render_to_response
-from django.template import RequestContext
-
+from django.shortcuts import render
+from django.utils.timezone import now, utc
 import datetime
 from schedule.periods import weekday_names
 
@@ -10,16 +9,15 @@ def month(request, year=0, month=0):
     month = int(month)
 
     if not year:
-        year = datetime.datetime.today().year
+        year = now().year
 
     if not month:
-        month = datetime.datetime.today().month
+        month = now().month
 
-    date = datetime.datetime(year, month, 1)
+    date = datetime.datetime(year, month, 1, tzinfo=utc)
 
-    return render_to_response('left-sidebar.html', {
+    return render(request, 'left-sidebar.html', {
         'date': date,
         'weekday_names': weekday_names,
         'managed': True,
-    }, context_instance = RequestContext(request))
-
+    })

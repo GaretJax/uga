@@ -18,6 +18,14 @@ label
 form p label:only-child
 	width: auto
 	margin-left: 10.7em
+	text-align: left
+	position: relative
+	padding-left: 2em
+
+	input[type=checkbox]
+		display: block
+		position: absolute
+		left: 0
 
 form
 	fieldset
@@ -70,7 +78,7 @@ form.confirmation
 			font-weight: bold
 			font-size: 1.2em
 			margin-top: 2em
-		
+
 		&:last-of-type
 			text-align: center
 			padding-top: 1em
@@ -160,7 +168,7 @@ textarea
 
 	&.max
 		width: 100%
-	
+
 
 .formerror
 	+border-radius(2px)
@@ -235,7 +243,7 @@ form.yesno
 
 // Form specific styles
 
-form.enroll, form.edit-member
+form.enroll, form.edit-member, form.announce
 	.email input
 		width: 26.6em
 

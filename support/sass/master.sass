@@ -5,8 +5,15 @@
 
 @import "defines"
 
+html, body
+	min-height: 100%
+
 body
-	background: #E7E7E7 url("../images/background.png")
+	background-color: #E7E7E7
+	background-image: url('../images/logo-bg.png'), url("../images/background.png")
+	background-repeat: no-repeat, repeat
+	background-position: bottom right, 0 0
+	background-attachment: fixed, fixed
 	max-width: 1050px
 	margin: 0px auto 0
 	padding-top: 20px
@@ -22,7 +29,7 @@ header
 	border-right: 1px solid #d9d9d9
 	+box-shadow(#ddd 0px -1px 1px)
 	+border-top-radius(2px)
-	background: #f5f5f5
+	background: #f5f5f5 url('../images/logo-bg-5.png') no-repeat fixed bottom right
 
 	h1
 		width: 220px
@@ -78,58 +85,189 @@ body > section
 @import "layouts"
 @import "calendar"
 
-.content.main .albums
-	overflow: auto
-	margin: 0
-	padding: 0
-
-	> li
-		+box-sizing(border-box)
-		width: 50%
-		float: left
-		padding: 0 0 1.5em .75em
+.content.main
+	.albums
+		overflow: auto
 		margin: 0
-		display: block
+		padding: 0
 
-		a
-			display: block
-
-		img
-			width: 130px
-			height: 130px
-			padding: 2px
-			border: 1px solid #ccc
-			margin-right: 1em
+		> li
+			+box-sizing(border-box)
+			width: 50%
 			float: left
+			padding: 0 0 1.5em .75em
+			margin: 0
 			display: block
 
-		strong
+			a
+				display: block
+
+			.block-img
+				float: left
+				margin-right: 1em
+
+			img
+				display: block
+
+			strong
+				display: block
+				font-size: 1.2em
+				font-weight: normal
+				color: #3B5998
+
+			a > span
+				color: #999
+				display: block
+				text-decoration: none
+
+			a:hover
+				text-decoration: none
+
+			a:hover strong
+				text-decoration: underline
+
+
+		> li:nth-child(2n+1)
+			padding-left: 0
+			padding-right: .75em
+			text-align: right
+
+			.block-img
+				margin-right: 0
+				margin-left: 1em
+				float: right
+
+	.photos
+		margin: 2em -12px 0 0px
+		padding: 0
+		overflow: auto
+
+		li
+			margin: 0 12px 12px 0
 			display: block
-			font-size: 1.2em
-			font-weight: normal
-			color: #3B5998
+			list-style-type: none
+			float: left
+
+			img, a
+				display: block
+				padding: 0
+				margin: 0
+
+	.single-photo
+		text-align: center
+
+		> div
+			margin: 1.5em 0
+			> span
+				display: inline-block
+
+				img
+					display: block
+
+		nav
+			ul
+				padding: 0
+				margin: 0
+
+			li
+				display: inline
+				color: #888
+
+			li + li:before
+				content: ' ◆ '
+				padding: 0 1em
+				color: #ccc
+
+		> p
+			text-align: center
+			color: #666
+			margin-bottom: 0
+
+
+	.block-img
+		text-align: center
+		margin-bottom: -.5em
 
 		span
-			color: #999
-			display: block
-			text-decoration: none
+			display: inline-block
+			position: relative
 
-		a:hover
-			text-decoration: none
+			img
+				display: block
+				position: relative
 
-		a:hover strong
-			text-decoration: underline
+			&:after
+				content: " "
+				text-indent: -1000em
+				+box-shadow(rgba(#fff, .2) 0 0 0 1px inset)
+				+box-sizing(border-box)
+				display: block
+				position: absolute
+				left: 0
+				top: 0
+				right: 0
+				bottom: 0
+				border: 6px solid rgba(#fff, 0.1)
+
+	a:hover .block-img span:after
+		border-color: rgba(#fff, 0.2)
+		+box-shadow(rgba(#fff, .4) 0 0 0 1px inset)
+
+ul.member-counts
+	display: block
+	padding: 5px 5px 5px 5px
+	margin: 0
+	font-size: 0
+	border: 1px solid #ccc
+
+	li + li
+		margin-left: 5px
 
 
-	> li:nth-child(2n+1)
-		padding-left: 0
-		padding-right: .75em
-		text-align: right
+	li
+		display: inline-block
+		width: 249px
+		text-align: center
+		background: #eee
+		padding: 0
+		margin: 0
+		height: 100px
+		div
+			margin: 30px 0 0
+			padding-right: 7px
+			color: #555
+			font-size: 4rem
+			letter-spacing: -6px
 
-		img
-			margin-right: 0
-			margin-left: 1em
-			float: right
+		&:last-child
+			width: 248px
+
+		p
+			margin: 17px 0 0
+			text-align: center
+			text-transform: uppercase
+			font-size: .9rem
+			color: #888
+			font-weight: bold
+
+
+
+
+table.active-members
+	tr:hover
+		td, th
+			background: rgba(yellow, .1)
+
+	td:nth-child(1)
+		white-space: nowrap
+	td:nth-child(2)
+		white-space: nowrap
+		-webkit-text-overflow: ellipsis
+		-moz-text-overflow: ellipsis
+		-o-text-overflow: ellipsis
+		text-overflow: ellipsis
+		max-width: 200px
+		overflow: hidden
 
 
 form.edit-member
@@ -245,4 +383,4 @@ form.edit-member
 		float: right
 		margin-right: 0.85em
 
-
+@import ticketcorner

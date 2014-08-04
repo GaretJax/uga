@@ -11,8 +11,8 @@
 <form action="" method="post" accept-charset="utf-8" class="edit-member">
 	{% csrf_token %}
 
-	{{ form.errors }}
-	{{ form.non_field_errors }}
+	{{ edit_form.errors }}
+	{{ edit_form.non_field_errors }}
 
     <h2>Dati generali</h2>
 
@@ -155,7 +155,9 @@
 <section class="qrcode">
     <h2>Codice QR</h2>
 
-    {{ member.first_name|qrcode:'100x100' }}
+    {{ member.get_renew_url|qrcode:'150x150' }}
+
+    <a href="{{ member.get_renew_url }}">Rinnova</a>
 </section>
 
 <section class="delete-member">
