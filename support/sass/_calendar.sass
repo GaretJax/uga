@@ -2,7 +2,7 @@
 
 table.calendar td ul li
 	&.calendar-1
-		background: #216382
+		background: #0085cf
 
 nav.calendar-nav
 	ul
@@ -146,20 +146,22 @@ table.calendar
 			background: #154B84
 			line-height: 1.4em
 			white-space: nowrap
-			padding: 0
 			overflow: hidden
+			padding: 0 5px
+
+			&.ends
+				opacity: .6
 
 			a
 				color: #fff
 				display: block
 				overflow: hidden
 				text-decoration: none
-				padding: 3px 5px
-				text-overflow: ellipsis
+				padding: 3px 0px
 
 				&:hover
-					text-decoration: none
-					background: rgba(#fff, .2)
+					text-decoration: underline
+					background: inherit
 
 			&:first-child
 				+border-top-radius(3px)
@@ -167,12 +169,11 @@ table.calendar
 			&:last-child,
 			&:nth-child(3)
 				+border-bottom-radius(3px)
-
 			&:hover
 				background: rgba(#fff, .1)
 
 			& + li
-				margin-top: 1px
+				border-top: 1px solid #306189
 
 			&:nth-child(n+4)
 				display: none
@@ -186,80 +187,61 @@ table.calendar
 				font-weight: bold
 				font-size: 1.3em
 
+.content .events-details
+	margin: 0 0 1em 0
+	padding: 0
 
-.event-details
-	article
-		overflow: hidden
+	> li
+		display: block
+		margin: 2em 0 0 0
+		padding: 0
+		border-bottom: 1px solid #ddd
 
-		.location
-			float: right
-			margin-left: 17px
-			position: relative
-
-			a
-				display: block
-				position: absolute
-				color: inherit
-				left: 40px
-				right: 40px
-				background: rgba(#fff, 1)
-				border: 1px solid rgba(#000, .5)
-				bottom: 70px
-				padding: .5rem 1rem
-				+border-radius(2px)
-				+box-shadow(rgba(#000, .2) 0 3px 3px 0)
-
-				$arrow-size: 6px
-				&:after, &:before
-					position: absolute
-					bottom: -$arrow-size
-					left: 50%
-					margin-left: -$arrow-size
-					display: block
-					content: " "
-					width: 0
-					height: 0
-					border-left: $arrow-size solid transparent
-					border-right: $arrow-size solid transparent
-
-				&:before
-					border-top: $arrow-size solid rgba(#000, .5)
-
-				&:after
-					bottom: -$arrow-size + 1
-					border-top: $arrow-size solid #fff
-
-				address
-					color: #444
-
-				&:hover
-					text-decoration: none
-					+box-shadow(rgba(#000, .2) 0 3px 5px 1px)
+	.event
+		overflow: auto
 
 		h1
-			font-size: 1.1rem
-			margin-bottom: 0.7rem
-
-		.location + time
-			margin-right: 367px
-
-		time
-			display: block
-			padding: 0.4em 0
-			border-top: 1px solid #e0e0e0
-			border-bottom: 1px solid #e0e0e0
-			color: #999
-			background: url('../images/calendar.png') no-repeat 3px 50%
-			padding-left: 25px
-
-			span
-				color: #000
-
-		.description
-			max-height: 3em
-			text-overflow: ellipsis
-
-	li
-		margin-top: 3rem
+			font-weight: bold
+			color: #555
+			font-size: 1.2em
+			margin: 0
+			padding: .8em
 
 
+		> ul
+			+box-sizing(border-box)
+			width: 40%
+			margin: 0
+			padding: 0
+			border-top: 1px solid #eee
+			float: left
+
+			li
+				padding: .8em 1em
+				display: block
+
+				&.date
+					float: left
+
+				&.time
+					float: left
+					border-left: 1px solid #eee
+
+				&.location
+					border-top: 1px solid #eee
+					clear: both
+
+		> div
+			border-top: 1px solid #eee
+			width: 60%
+			+box-sizing(border-box)
+			padding: .8em 1em
+			float: left
+			border-left: 1px solid #eee
+
+		&:target
+			background: #fefff3
+
+			h1
+				background: #fff
+				color: #333

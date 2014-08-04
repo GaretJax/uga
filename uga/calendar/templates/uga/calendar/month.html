@@ -36,11 +36,11 @@
 										<li class="more">…</li>
 									{% endif %}
 								{% endifequal %}
-								<li class="calendar-{{ o.occurrence.event.calendar.pk }}">
-									<a href="#evento-{{ o.occurrence.event.id }}"><span>{% ifequal o.class 0 %}{{ o.occurrence.start|time:"G:i" }} – {% endifequal %}
+								<li class="calendar-{{ o.occurrence.event.calendar.pk }}{% ifequal o.class 3 %} ends{% endifequal %}">
+								<a href="#evento-{{ o.occurrence.event.pk }}"><span>{% ifequal o.class 0 %}{{ o.occurrence.start|time:"G:i" }} – {% endifequal %}
 									{% ifequal o.class 1 %}{{ o.occurrence.start|time:"G:i" }} · {% endifequal %}
 									{% ifequal o.class 2 %}(All day) · {% endifequal %}
-									{% ifequal o.class 3 %}{{ o.occurrence.end|time:"G:i" }} (ends) · {% endifequal %}</span>
+									{% ifequal o.class 3 %}{{ o.occurrence.end|time:"G:i" }} (finisce) · {% endifequal %}</span>
 									{{ o.occurrence.title }}</a>
 								</li>
 							{% endfor %}
@@ -54,10 +54,12 @@
 	</tbody>
 </table>
 
-{% if managed %}
-	{% include "uga/calendar/month_navigation.html" %}
-{% endif %}
-
 {% if display_details %}
-	{% include "uga/calendar/details.html" %}
+<ul class="events-details">
+	{% for e in events %}
+	<li>
+	{% include "uga/calendar/event_details.html" with event=e only %}
+	</li>
+	{% endfor %}
+</ul>
 {% endif %}

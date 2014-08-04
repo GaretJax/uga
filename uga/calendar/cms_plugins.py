@@ -24,7 +24,7 @@ class CMSCalendarMonthPlugin(CMSPluginBase):
 
         context.update({
             'date': date,
-            'events': event_list,
+            'events': period.get_occurrences(),
             'period': period,
             'calendar': instance.calendars_to_display.all(),
             'weekday_names': weekday_names,
