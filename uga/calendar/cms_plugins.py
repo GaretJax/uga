@@ -1,9 +1,9 @@
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 from uga.calendar import models
+from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
 
-import datetime
 from schedule.conf.settings import GET_EVENTS_FUNC
 from schedule.periods import Month, weekday_names
 
@@ -14,7 +14,7 @@ class CMSCalendarMonthPlugin(CMSPluginBase):
     render_template = "uga/calendar/month.html"
 
     def render(self, context, instance, placeholder):
-        date = context.get('date', datetime.datetime.now())
+        date = context.get('date', now())
 
         event_list = []
         for calendar in instance.calendars_to_display.all():
@@ -34,4 +34,3 @@ class CMSCalendarMonthPlugin(CMSPluginBase):
         return context
 
 plugin_pool.register_plugin(CMSCalendarMonthPlugin)
-

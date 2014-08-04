@@ -3,8 +3,10 @@
 <head>
 	<meta charset="utf-8" />
 	
-	<title>UGA · {% page_attribute "page_title" %}</title>
-	
+	<title>UGA · {% block head_title %}{% page_attribute "page_title" %}{% endblock %}</title>
+
+	<meta name="viewport" content="width=1100px;"/>
+
 	{% render_block "css" %}
 	
 	{% render_block "js" %}
@@ -12,7 +14,7 @@
 	{% addtoblock "js" %}<script src="{{ STATIC_URL }}scripts/jquery-1.6.2.js"></script>{% endaddtoblock %}
 	{% addtoblock "js" %}<script src="{{ STATIC_URL }}scripts/master.js"></script>{% endaddtoblock %}
 </head>
-<body>
+<body id="{% block bodyid %}{% endblock %}">
 	<header>
 		<h1><a href="{% page_url "index" %}"><img src="{{ STATIC_URL }}images/logo.png" alt="UGA" /></a></h1>
 	</header>
@@ -30,7 +32,7 @@
 	</aside>
 	{% block content %}{% endblock %}
 	<footer>
-		<p>© 1993-2011 UGA Freeborgo. Tutti i diritti all'asta. In parole povere, ruba qualcosa da questo sito e tutti ti prenderanno per pazzo.</p>
+		<p>© 1993-{% now "Y" %} UGA Freeborgo. Tutti i diritti all'asta. In parole povere, ruba qualcosa da questo sito e tutti ti prenderanno per pazzo.</p>
 	</footer>
 </body>
 </html>

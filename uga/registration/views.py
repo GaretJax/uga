@@ -6,9 +6,9 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.contrib import messages
-
 from mailchimp.chimpy import chimpy
 
+from uga.inscriptions.shortcuts import render_to_mail
 from uga.decorators import require_cms_permissions
 from uga.registration import forms, models
 
@@ -18,6 +18,8 @@ from uga.registration import forms, models
 def list(request):
     return render_to_response('uga/registration/list.html', {
         'members': models.Member.objects.all(),
+        'active': models.Member.active.all(),
+        'inactive': models.Member.inactive.all(),
     }, context_instance=RequestContext(request))
 
 
@@ -79,6 +81,41 @@ def subscriptions(request, member_id):
             kwargs={'member_id': int(member_id)}))
 
 
+@require_cms_permissions
+def announce(request):
+    if request.method == 'POST':
+        form = forms.AnnounceForm(request.POST)
+
+        if form.is_valid():
+            # Save changes to member
+            try:
+                member = models.Member.objects.get(email=form.cleaned_data['email'])
+            except models.Member.DoesNotExist:
+                member = form.save()
+
+            if form.cleaned_data['mailing_list']:
+                # TODO: Subscribe to mailchimp
+                pass
+
+            render_to_mail(
+                u'Conferma dell\'iscrizione su uga.ch',
+                u'mail@uga.ch',
+                [member.email],
+                'uga/registration/announce-mail.txt',
+                'uga/registration/announce-mail.html',
+                {
+                    'member': member,
+                }
+            )
+
+            return HttpResponseRedirect(reverse('announce-ok'))
+    else:
+        form = forms.AnnounceForm()
+
+    return render_to_response('uga/registration/announce.html', {
+        'form': form,
+    }, context_instance=RequestContext(request))
+
 
 @require_cms_permissions
 def edit(request, member_id):
@@ -102,6 +139,7 @@ def edit(request, member_id):
                         'FNAME': member.first_name,
                         'LNAME': member.last_name,
                         'EMAIL': member.email,
+                        'UUID': member.uuid,
                     })
                 except chimpy.ChimpyException:
                     pass
@@ -132,19 +170,80 @@ def edit(request, member_id):
     }, context_instance=RequestContext(request))
 
 
+@require_cms_permissions
+def renew(request, uuid):
+    member = get_object_or_404(models.Member, uuid=uuid)
+    today = date.today()
+
+    subscriptions = models.SubscriptionYear.objects.filter(
+        start__lt=today
+    ).filter(
+        end__gt=today
+    ).order_by('-end')
+
+    try:
+        subscription = subscriptions.exclude(
+            membership__person=member
+        )[0]
+    except IndexError:
+        subscription = subscriptions[0]
+        membership = None
+    else:
+        models.Membership.objects.create(person=member,
+                    year=subscription)
+        membership = True
+
+        # TODO: Subscribe on the mailing list?
+
+    if request.GET.get('next', False) == 'list':
+        # Create a new message
+        messages.success(request, '<strong>{0}</strong>\'s membership was ' \
+                'correctly renewed.'.format(member))
+        return HttpResponseRedirect(reverse('list'))
+
+    return render_to_response('uga/registration/renew.html', {
+        'member': member,
+        'subscription': subscription,
+        'membership': membership,
+    }, context_instance=RequestContext(request))
+
+
 
 @require_cms_permissions
 def export_data(request):
+    today = date.today()
+    subscriptions = models.SubscriptionYear.objects.filter(
+        start__lt=today
+    ).filter(
+        end__gt=today
+    ).order_by('-end')
+
+    subscription = subscriptions[0]
+
+    members = subscription.members.all()
+
     return render_to_response('uga/registration/export_data.html', {
-        'page_title': 'Esportazione dati soci',
-        'members': models.Member.objects.all(),
+        'page_title': 'Esportazione dati soci per {}'.format(subscription),
+        'subscription': subscription,
+        'members': members,
     }, context_instance=RequestContext(request))
 
 
 @require_cms_permissions
 def export_excel(request):
+    today = date.today()
+    subscriptions = models.SubscriptionYear.objects.filter(
+        start__lt=today
+    ).filter(
+        end__gt=today
+    ).order_by('-end')
+
+    subscription = subscriptions[0]
+
+    members = subscription.members.all()
+
     response = render_to_response('uga/registration/spreadsheet.html', {
-        'members': models.Member.objects.all(),
+        'members': members,
     }, context_instance=RequestContext(request))
 
     filename = date.today().strftime('soci-%Y-%m-%d.xls')
@@ -185,17 +284,13 @@ def remove(request, member_id):
     }, context_instance=RequestContext(request))
 
 
-def renew_qrcode(request, random_id):
-    pass
-
-
 @require_cms_permissions
 def enroll(request):
     today = date.today()
-    default_subscribtion = models.SubscriptionYear.objects.filter(
+    default_subscription = models.SubscriptionYear.objects.filter(
             start__lt=today).filter(end__gt=today).order_by('-end')[0]
     initial = {
-        'subscription': default_subscribtion,
+        'subscription': default_subscription,
         'zip_code': 1700,
         'city': 'Fribourg',
         'mailing_list': True,

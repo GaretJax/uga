@@ -7,3 +7,4 @@ settings/development.py
 .gondor
 Gemfile.lock
 collected-static
+fabfile.py

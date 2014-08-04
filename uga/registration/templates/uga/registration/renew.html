@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>{% load static %}
+	<head>
+		<meta charset="utf-8"/>
+		<title>Conferma iscrizione</title>
+		<meta name="viewport" content="width=device-width,minimum-scale=1.0, maximum-scale=1.0" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<link rel="stylesheet" href="{% static 'styles/renew.css' %}"/>
+		<script type="application/x-javascript">
+			addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+
+			function hideURLbar(){
+				window.scrollTo(0,1);
+			}
+		</script>
+	</head>
+
+	<body class="{% if membership %}ok{% else %}fail{% endif %}">
+		<p><strong>{{ member.get_full_name }}</strong> è {% if membership %}stato{% else %}già{% endif %} iscritto a <strong>{{ subscription }}</strong> con l'email <strong>{{ member.email }}</strong></p>
+	</body>
+</html>

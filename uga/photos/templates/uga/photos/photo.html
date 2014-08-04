@@ -1,0 +1,56 @@
+{% extends "uga/photos/base.html" %}
+
+{% block head_title %}{{ photo.album.title }} ({{ photo.index }}/{{ photo.album.size }}){% endblock %}
+{% block page_title %}{{ photo.album.title }}{% endblock %}
+
+{% block additional_breadcrumbs %}
+<li><a href="{% url album album_id=photo.album.pk %}">{{ photo.album.title }}</a></li>
+{% endblock %}
+
+{% block main-content %}
+
+<div class="single-photo">
+	<nav>
+		<ul>
+			{% with prev=photo.prev %}{% if prev %}
+			<li><a href="{% url photo album_id=photo.album.id,photo_id=prev.id %}">&larr; Precedente</a>
+			{% else %}
+			<li>&larr; Precedente</li>
+			{% endif %}{% endwith %}
+			<li><a href="{% url album album_id=photo.album.pk %}">Torna all'album</a></li>
+			{% with next=photo.next %}{% if next %}
+			<li><a href="{% url photo album_id=photo.album.id,photo_id=next.id %}">Prossima &rarr;</a></li>
+			{% else %}
+			<li>Prossima &rarr;</li>
+			{% endif %}{% endwith %}
+		</ul>
+	</nav>
+
+	<div>
+		<div class="block-img">
+			<span>
+				{% with full=photo.img_768 %}
+				<img src="{{ full.url }}" width="{{ full.width }}" height="{{ full.height }}" />
+				{% endwith %}
+			</span>
+		</div>
+	</div>
+
+	<p>{{ photo.index }}/{{ photo.album.size }}</p>
+
+	<div id="disqus_thread"></div>
+
+	<script type="text/javascript">
+		var disqus_shortname = 'uga';
+		var disqus_identifier = 'photo-{{ photo.pk }}';
+		(function() {
+			var dsq = document.createElement('script');
+				dsq.type = 'text/javascript';
+				dsq.async = true;
+				dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+ </div>
+ {% endblock %}

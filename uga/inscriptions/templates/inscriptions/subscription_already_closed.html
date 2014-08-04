@@ -1,17 +1,12 @@
 {% extends "inscriptions/base.html" %}
 
-{% block title %}Iscrizioni all'evento “{{ event.name }}” già chiuse{% endblock %}
+{% block page_title %}Iscrizioni all'evento “{{ event.event.title }}” già chiuse{% endblock %}
 
-{% block bodyid %}closed{% endblock %}
+{% block bodyid %}ticketcorner-closed{% endblock %}
 
-{% block content -%}
-    <section>
-        <h1>Iscrizioni chiuse</h1>
-        
-        <p>Ci dispiace, purtroppo le iscrizioni all'evento “{{ event.name }}” sono già chiuse.</p>
-        
-        <div>
-            <a class="button" href="{% url inscriptions.list %}">Torna alla lista eventi &rarr;</a>
-        </div>
-    </section>
-{%- endblock content %}
+{% block main-content %}
+<p>Ci dispiace, purtroppo le iscrizioni all'evento “{{ event.event.title }}” sono già chiuse.</p>
+<div>
+	<a class="button" href="{% url inscriptions.list %}"><span>Torna alla lista eventi &rarr;</span></a>
+</div>
+{% endblock %}

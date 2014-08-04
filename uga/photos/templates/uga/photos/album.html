@@ -1,0 +1,23 @@
+{% extends "uga/photos/base.html" %}
+
+{% block page_title %}{{ album.title }}{% endblock %}
+
+{% block additional_breadcrumbs %}
+<li><a href="{% url album album_id=album.pk %}">{{ album.title }}</a></li>
+{% endblock %}
+
+{% block main-content %}
+
+<ul class="photos">
+	{% for photo in album.photos.all %}
+	{% with resized=photo.img_118c full=photo.img_600 %}
+	<li><a href="{% url photo album_id=album.id,photo_id=photo.id %}"><div class="block-img"><span><img src="{{ resized.url }}"
+				width="{{ resized.width }}"
+				height="{{ resized.height }}"
+				data-origsrc="{{ full.url }}" /></span></div></a></li>
+	{% endwith %}
+	{% endfor %}
+</ul>
+
+{% endblock %}
+

@@ -14,13 +14,21 @@ PORT = 8000
 
 SEND_BROKEN_LINK_EMAILS = True
 
-IGNORABLE_404_ENDS = ['favicon.ico','favicon.png','robots.txt',]
+IGNORABLE_404_ENDS = [
+    'favicon.ico',
+    'favicon.ico/',
+    'favicon.png',
+    'crossdomain.xml',
+    'crossdomain.xml/',
+    'robots.txt',
+    'robots.txt/',
+]
 
 MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE':'sqlite3',
+        'ENGINE': 'sqlite3',
         'NAME': os.path.join(PROJECT_BASE, 'assets', 'database.sqlite'),
         'USER': '',             # Not used with sqlite3.
         'PASSWORD': '',         # Not used with sqlite3.
@@ -36,6 +44,11 @@ DATABASES = {
 # system time zone.
 TIME_ZONE = 'Europe/Zurich'
 
+#import warnings
+#warnings.filterwarnings(
+#        'error', r"DateTimeField received a naive datetime",
+#        RuntimeWarning, r'django\.db\.models\.fields')
+
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'it-it'
@@ -49,6 +62,8 @@ SITE_ID = 1
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
 USE_I18N = True
+
+USE_TZ = False
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
@@ -76,6 +91,8 @@ TEMPLATE_LOADERS = (
     'coffin.template.loaders.Loader',
 )
 
+#TEMPLATE_LOADERS = JINJA2_TEMPLATE_LOADERS
+
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.i18n',
     'django.core.context_processors.request',
@@ -88,7 +105,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 MIDDLEWARE_CLASSES = (
-    'django.middleware.transaction.TransactionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -123,6 +139,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #'django.contrib.gis',
 
     # Third party apps
     'sentry',
@@ -131,16 +148,16 @@ INSTALLED_APPS = (
     'schedule',
     #'mailchimp',
     #'haystack',
-    # Django cms apps
-
+    'south',
+    'reversion',
     'coffin',
+
+    # Django cms apps
     'cms',
     'mptt',
     'menus',
-    'south',
     'sekizai',
     'appmedia',
-    'reversion',
     'cms.plugins.text',
     'cms.plugins.picture',
     'cms.plugins.link',
@@ -152,18 +169,28 @@ INSTALLED_APPS = (
     'cms.plugins.video',
     'cms.plugins.twitter',
 
+    # Blog
+    'cmsplugin_blog',
+    'djangocms_utils',
+    'simple_translation',
+    'tagging',
+    #'missing',
+
     # UGA Apps
     'uga.registration',
     'uga.calendar',
     'uga.photos',
     'uga.auth',
     'uga.inscriptions',
+    'uga.locations',
 )
 
 JINJA2_DISABLED_TEMPLATES = (
     r'[^/]+\.html',
     r'uga/(registration|calendar|photos)',
+    r'inscriptions/(?!mails)',
     r'(cms|menu|auth|admin|admin_doc|registration)/',
+    r'(cmsplugin_blog|simple_translation)/',
 )
 
 
@@ -229,3 +256,10 @@ LOGGING = {
 
 MAILCHIMP_API_KEY = ''
 MAILING_LIST_ID = ''
+
+PICASA_USER = 'ugawebmail@gmail.com'
+
+# TODO: replace with local verions
+JQUERY_JS = 'https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js'
+JQUERY_UI_JS = 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js'
+JQUERY_UI_CSS = 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/smoothness/jquery-ui.css'

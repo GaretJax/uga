@@ -1,6 +1,4 @@
-from coffin import shortcuts
-
-from django.template import RequestContext
+from django.template import RequestContext, loader
 from django.http import HttpResponse
 from django.core.mail import EmailMultiAlternatives
 
@@ -10,7 +8,7 @@ def render_to_string(template, context={}, request=None):
         context_instance = RequestContext(request)
     else:
         context_instance = None
-    return shortcuts.render_to_string(template, context, context_instance)
+    return loader.render_to_string(template, context, context_instance)
 
 
 def render_to_response(template, context={}, request=None, mimetype="text/html"):
@@ -18,9 +16,12 @@ def render_to_response(template, context={}, request=None, mimetype="text/html")
     return HttpResponse(response, mimetype=mimetype)
 
 
-def render_to_mail(subject, sender, recipients, text_template, html_template, context, request=None):
+def render_to_mail(subject, sender, recipients, text_template, html_template,
+        context, request=None, connection=None):
+
     text_message = render_to_string(text_template, context, request)
-    mail = EmailMultiAlternatives(subject, text_message, sender, recipients)
+    mail = EmailMultiAlternatives(subject, text_message, sender, recipients,
+            connection=connection)
 
     if html_template:
         html_message = render_to_string(html_template, context, request)

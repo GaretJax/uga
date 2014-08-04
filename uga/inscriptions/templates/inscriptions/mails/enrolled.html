@@ -1,63 +1,68 @@
 <html lang="en">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Aggiornamento iscrizione a “{{ event.name }}”</title>
-</head>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Aggiornamento iscrizione a “{{ event.event.title }}”</title>
+	</head>
 
-<body>
-    <table style="background: #f3f3f3" width="100%" cellspacing="0" cellpadding="0">
-        <tr>
-            <td colspan="3" align="center">
-                <table width="600" cellspacing="0" cellpadding="0">
-                    <tr>
-                        <td align="center" class="permission" style="font-size: 11px">
-                            <p style="margin: 15px 10px 0 10px">Hai ricevuto questa email perchè ti sei iscritto ad un evento su <a href="http://{{ site.domain }}/">{{ site.name }}</a>.</p>
-                            <p style="margin: 0 10px 15px 10px">Il messaggio non viene visualizzato correttamente? <a href="http://{{ site.domain }}{{ inscription.get_absolute_url() }}">Accedi alla gestione in linea</a>.</p>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td align="center">
-                <table style="background: #fff;border: 1px solid #ccc" width="600" cellspacing="0" cellpadding="0">
-                    <tr>
-                        <td width="30"></td>
-                        <td align="left">
-                            <p style="margin-top: 25px">Ciao Ughino,</p>
-                            <p style="margin-bottom: 15px">si è appena liberato un posto per l'evento <strong>{{ event.name }}</strong> e siamo quindi felici di poterti confermare la partecipazione di <strong>{{ enrolled.full_name() }}</strong>!</p>
-                        </td>
-                        <td width="30"></td>
-                    </tr>
-                    <tr>
-                        <td width="30"></td>
-                        <td align="left">
-                            <h1 style="font-size: 18px; color:#49080A;">Gestione dell'iscrizione</h1>
-                            <p>Nel caso alcuni dei nominativi della tua iscrizione siano ancora in attesa e si dovessero liberare abbastanza posti da permetterene la partecipazione all'evento, riceverai un'ulteriore mail simile a questa contenente le informazioni aggiornate.</p>
-                            <p>Ti ricordiamo che è comunque possibile controllare in ogni momento lo stato delle tue iscrizioni (così come rimuovere dei nominativi da te iscritti) direttamente sul nostro sito web accedendo alla <a href="http://{{ site.domain }}{{ inscription.get_absolute_url() }}">gestione in linea</a>.</p>
-                            <p>Se avessi altre domande o richieste non esitare a <a href="mailto:mail@uga.ch">contattarci</a> indicando le informazioni relative alla tua iscrizione.</p>
-                        </td>
-                        <td width="30"></td>
-                    </tr>
-                    <tr>
-                        <td width="30"></td>
-                        <td align="left">
-                            <p style="margin-bottom: 20px">Grazie,<br />il <em>ComitUGA</em></p>
-                        </td>
-                        <td width="30"></td>
-                    </tr>
-                </table>
-            </td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td align="center">
-                <p style="margin: 10px 10px 15px 10px;font-size: 10px;"><a style="color: #666;" href="http://{{ site.domain }}/">Universitari Gaudenti Associati</a></p>
-            </td>
-            <td></td>
-        </tr>
-    </table>
-</body>
+	<body>
+		<table style="background: #f3f3f3" width="100%" cellspacing="0" cellpadding="0">
+			<tr>
+				<td colspan="3" align="center">
+					<table width="600" cellspacing="0" cellpadding="0">
+						<tr>
+							<td align="center" class="permission" style="font-size: 11px">
+								<p style="margin: 15px 10px 0 10px">Hai ricevuto questa email perchè ti sei iscritto ad un evento su <a href="http://{{ site.domain }}/">{{ site.name }}</a>.</p>
+								<p style="margin: 0 10px 15px 10px">Il messaggio non viene visualizzato correttamente? <a href="http://{{ site.domain }}{{ inscription.get_absolute_url() }}">Accedi alla gestione in linea</a>.</p>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td align="center">
+					<table style="background: #fff;border: 1px solid #ccc" width="600" cellspacing="0" cellpadding="0">
+						<tr>
+							<td width="30"></td>
+							<td align="left">
+								<p style="margin-top: 25px">Ciao Ughino,</p>
+								<p style="margin-bottom: 15px">si è appena liberato un posto per l'evento <strong>{{ event.event.title }}</strong> e siamo quindi felici di poterti confermare la partecipazione di:</p>
+								<ul>
+									{% for e in enrolled %}
+									<li><strong>{{ e.full_name() }}</strong></li>
+									{% endfor %}
+								</ul>
+							</td>
+							<td width="30"></td>
+						</tr>
+						<tr>
+							<td width="30"></td>
+							<td align="left">
+								<h1 style="font-size: 18px; color:#49080A;">Gestione dell'iscrizione</h1>
+								<p>Nel caso alcuni dei nominativi della tua iscrizione siano ancora in attesa e si dovessero liberare abbastanza posti da permetterene la partecipazione all'evento, riceverai un'ulteriore mail simile a questa contenente le informazioni aggiornate.</p>
+								<p>Ti ricordiamo che è comunque possibile controllare in ogni momento lo stato delle tue iscrizioni (così come rimuovere dei nominativi da te iscritti) direttamente sul nostro sito web accedendo alla <a href="http://{{ site.domain }}{{ inscription.get_absolute_url() }}">gestione in linea</a>.</p>
+								<p>Se avessi altre domande o richieste non esitare a <a href="mailto:mail@uga.ch">contattarci</a> indicando le informazioni relative alla tua iscrizione.</p>
+							</td>
+							<td width="30"></td>
+						</tr>
+						<tr>
+							<td width="30"></td>
+							<td align="left">
+								<p style="margin-bottom: 20px">Grazie,<br />il <em>ComitUGA</em></p>
+							</td>
+							<td width="30"></td>
+						</tr>
+					</table>
+				</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td align="center">
+					<p style="margin: 10px 10px 15px 10px;font-size: 10px;"><a style="color: #666;" href="http://{{ site.domain }}/">Universitari Gaudenti Associati</a></p>
+				</td>
+				<td></td>
+			</tr>
+		</table>
+	</body>
 </html>

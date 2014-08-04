@@ -1,39 +1,27 @@
-from django.shortcuts import render_to_response
-from django.template import RequestContext
+from django.shortcuts import render, get_object_or_404
+from django.core.urlresolvers import reverse
 
-from gdata.photos import service as picasa
+from . import models
+
+
+class Photo(object):
+    def get_absolute_url(self):
+        return reverse('photo', kwargs={'album_id': self.album_id, 'photo_id': self.id})
 
 
 def albums(request):
-    client = picasa.PhotosService()
-
-    albums = client.GetUserFeed(user='ugawebmail@gmail.com')
-
-    print dir(albums.entry[0])
-    return render_to_response('uga/photos/albums.html', {
-        'albums': albums,
-    }, context_instance = RequestContext(request))
+    return render(request, 'uga/photos/albums.html', {
+        'albums': models.Album.objects.all(),
+    })
 
 
-
-def ____():
-    url = 'https://picasaweb.google.com/data/feed/api/user/ugawebmail@gmail.com'
-
-    import urllib
-
-    from xml.etree import ElementTree
-
-    class Namespace(object):
-        def __init__(self, uri):
-            self.uri = uri
-
-        def __call__(self, tag):
-            return '{{{0}}}{1}'.format(self.uri, tag)
+def album(request, album_id):
+    return render(request, 'uga/photos/album.html', {
+        'album': get_object_or_404(models.Album, pk=album_id),
+    })
 
 
-    q = Namespace('http://www.w3.org/2005/Atom')
-
-    fu = urllib.urlopen(url)
-    xml = fu.read()
-    albums = ElementTree.fromstring(xml)
-    fu.close()
+def photo(request, album_id, photo_id):
+    return render(request, 'uga/photos/photo.html', {
+        'photo': get_object_or_404(models.Photo, pk=photo_id),
+    })

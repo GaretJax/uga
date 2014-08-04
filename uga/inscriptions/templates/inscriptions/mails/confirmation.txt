@@ -1,6 +1,6 @@
 Ciao Ughino,
 
-grazie per esserti registrato all'evento “{{ event.name }}”. La tua iscrizione
+grazie per esserti registrato all'evento “{{ event.event.title }}”. La tua iscrizione
 è stata conclusa correttamente!
 Questa email contiene un riassunto dei nominativi che hai iscritto ed i
 collegamenti agli strumenti di gestione in linea dell'iscrizione.
@@ -9,13 +9,13 @@ collegamenti agli strumenti di gestione in linea dell'iscrizione.
 Riassunto dell'iscrizione
 =========================
 
-Hai iscritto {{ inscription.inscriptionentry_set.count() }} persone all'evento “{{ event.name }}”.
+Hai iscritto {{ inscription.inscriptionentry_set.count() }} persone all'evento “{{ event.event.title }}”.
 Questo evento prevede un limite massimo di {{ event.limit }} posti.
 
 Nominativi iscritti
 -------------------
 {% for ins in inscription.inscriptionentry_set.all() %}
- * {% if ins.enrolled() %}[confermato]{% else %}[in attesa]{% endif %} {{ ins.full_name() }}
+ * {% if ins.enrolled(update=True) %}[confermato]{% else %}[in attesa]{% endif %} {{ ins.full_name() }}
    Numero dell'iscrizione: {{ ins.rank() }}
    Rimozione: http://{{ site.domain }}{% url inscriptions.remove inscription_id=inscription.id,auth=inscription.password,name_id=ins.id %}
 {% endfor %}

@@ -8,23 +8,24 @@ class BaseInscriptionEntryFormSet(BaseFormSet):
     def clean(self):
         if any(self.errors):
             return
-        
+
         if not self.filled_forms_count():
             raise forms.ValidationError("Devi inserire almeno un nominativo da iscrivere.")
-    
+
     def filled_forms_count(self):
         return sum((1 for f in self.forms if len(f.cleaned_data)))
-    
+
 
 class InscriptionEntryForm(forms.Form):
-    first_name = forms.CharField(max_length=100)
-    last_name = forms.CharField(max_length=100)
+    first_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'placeholder': 'Nome'}))
+    last_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'placeholder': 'Cognome'}))
 
 class InscriptionForm(forms.ModelForm):
-    
+    contact = forms.EmailField(max_length=100, widget=forms.TextInput(attrs={'placeholder': 'Indirizzo email'}))
+
     def clean_contact(self):
         return self.cleaned_data['contact'].lower()
-    
+
     class Meta:
         model = Inscription
         fields = ('contact',)

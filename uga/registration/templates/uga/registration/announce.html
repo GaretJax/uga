@@ -1,0 +1,49 @@
+{% extends "left-sidebar.html" %}
+
+{% load sekizai_tags %}
+
+{% block main-content %}
+{% addtoblock "js" %}<script src="{{ STATIC_URL }}scripts/forms.js"></script>{% endaddtoblock %}
+
+<form action="" method="post" class="announce">
+
+	{% csrf_token %}
+
+	{{ form.non_field_errors }}
+
+	<fieldset class="composite">
+		<legend>Name</legend>
+
+		<div>
+			{{ form.first_name.errors }}
+			<p class="first_name">
+				{{ form.first_name.label_tag }}
+				{{ form.first_name }}
+			</p>
+		</div>
+
+		<div>
+			{{ form.last_name.errors }}
+			<p class="last_name">
+				{{ form.last_name.label_tag }}
+				{{ form.last_name }}
+			</p>
+		</div>
+	</fieldset>
+
+	{{ form.email.errors }}
+	<p class="email">
+		{{ form.email.label_tag }}
+		{{ form.email }}
+	</p>
+
+	{{ form.mailing_list.errors }}
+	<p class="mailing-list">
+		<label>{{ form.mailing_list }} Iscrivimi alla mailing list in modo da ricevere notizie sugli eventi made by UGA (~2 email/mese).</label>
+	</p>
+
+
+	<button type="submit">Registrati</button>
+</form>
+{% endblock %}
+

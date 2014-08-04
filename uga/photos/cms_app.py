@@ -8,4 +8,3 @@ class PhotosHook(CMSApp):
     urls = ["uga.photos.urls"]
 
 apphook_pool.register(PhotosHook)
-

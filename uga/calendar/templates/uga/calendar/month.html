@@ -37,7 +37,7 @@
 									{% endif %}
 								{% endifequal %}
 								<li class="calendar-{{ o.occurrence.event.calendar.pk }}">
-									<a href="#"><span>{% ifequal o.class 0 %}{{ o.occurrence.start|time:"G:i" }} – {% endifequal %}
+									<a href="#evento-{{ o.occurrence.event.id }}"><span>{% ifequal o.class 0 %}{{ o.occurrence.start|time:"G:i" }} – {% endifequal %}
 									{% ifequal o.class 1 %}{{ o.occurrence.start|time:"G:i" }} · {% endifequal %}
 									{% ifequal o.class 2 %}(All day) · {% endifequal %}
 									{% ifequal o.class 3 %}{{ o.occurrence.end|time:"G:i" }} (ends) · {% endifequal %}</span>

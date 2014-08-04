@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	{% load qrcode %}
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Velocizza la tua iscritione con il tuo QR Code personale</title>
+		<style type="text/css">
+			html, body, .body_table {
+				height: 100%;
+			}
+			body, .body-table {
+				background: #f6f6f6;
+			}
+			.body-content {
+				background: #ffffff;
+				color: #202020;
+				font-family:Helvetica;
+				font-size:12px;
+				line-height:150%;
+				text-align:left;
+				border: 1px solid #eee;
+			}
+			strong {
+				font-size: 1.2em;
+				font-weight: bold;
+			}
+			img {
+				min-width: 100px;
+				min-height: 100px;
+			}
+		</style>
+	</head>
+	<body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" style="background: #f6f6f6;" bgcolor="#f6f6f6">
+		<center>
+			<table border="0" cellpadding="20" cellspacing="0" height="100%" width="100%" id="body-table" style="background: #f6f6f6;">
+				<tr>
+					<td align="center" valign="top">
+						<table border="0" cellpadding="20" cellspacing="0" width="320">
+							<tr>
+								<td valign="top" class="body-content">
+									<strong>Ciao {{ member.first_name }}</strong><br /><br />
+									Ricevi questa e-mail perché hai appena inserito i tuoi dati sul nostro sito.<br /><br />
+
+									Come puoi vedere, questa e-mail contiene un codice QR (sì é quel disegnino lì bianco e nero :-D). Stampa questo codice o tieni la mail sullo smartphone. Quando avrai la possiblità di pagare la quota d’iscrizione (alla journée d’accueil, all’apero o ad una delle nostre feste) mostrandoci il codice in un nanosecondo avremo sotto mano i tuoi dati d’iscrizione.<br /><br />
+									
+									In questo modo guadagnerai tempo prezioso da impegare in modo più proficuo (bere tre sorsi di birra in più, per esempio) e noi ci risparmieremo le fiacche sui polpastrelli a furia di pigiare sui tasti del computer i dati delle numerose (sperem o_O) iscrizioni (mamma mia se siamo pigri eh??? :-D).<br /><br />
+
+									Dicevamo dunque… ah si, il tuo codice QR:<br /><br/>
+
+									{{ member.get_renew_url|qrcode:'320x320' }}<br /><br/>
+
+									Onorati di averti presto tra di noi!<br /><br/>
+
+									Con tanto ammmore,<br />
+									<em>— Mamma UGA</em>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</center>
+	</body>
+</html>

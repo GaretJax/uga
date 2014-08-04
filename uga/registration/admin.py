@@ -32,8 +32,8 @@ class MembershipInline(admin.TabularInline):
 
 
 class MemberAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'email', 'street', 'street_number', 'is_complete')
-#   list_filter = (IncompleteListFilter,)
+    list_display = ('first_name', 'last_name', 'email', 'street', 'street_number', 'is_complete', 'is_active')
+    list_filter = ('membership__year',)
     list_editable = ('street', 'street_number')
     inlines = [
         MembershipInline,

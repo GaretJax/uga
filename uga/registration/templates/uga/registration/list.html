@@ -3,25 +3,54 @@
 {% load menu_tags cms_tags sekizai_tags %}
 
 {% block content %}
-	<h2>Soci attivi</h2>
-	<table>
-		<tr>
-			<th>Nome</th>
-			<th>Indirizzo</th>
-			<th>Email</th>
-		</tr>
-	{% for member in members %}
-		<tr>
-            <td><a href="{% url edit_member member_id=member.id %}">{{ member.first_name }} {{ member.last_name}}</a></td>
-			<td>{{ member.address }}</td>
-			<td><a href="mailto:{{ member.email }}">{{ member.email }}</a></td>
-		</tr>
+
+<ul class="member-counts">
+	<li><div>{{ active.count }}</div><p>soci attivi</p></li>
+	<li><div>{{ inactive.count }}</div><p>soci inattivi</p></li>
+	<li><div>{{ members.count }}</div><p>soci totali</p></li>
+</ul>
+
+<h2>Soci attivi</h2>
+<table class="active-members">
+	<tr>
+		<th>Nome</th>
+		<th>Indirizzo</th>
+		<th>Email</th>
+	</tr>
+	{% for member in active %}
+	<tr>
+		<td><a href="{% url edit_member member_id=member.id %}">{{ member.first_name }} {{ member.last_name}}</a></td>
+		<td>{{ member.address }}</td>
+		<td><a href="mailto:{{ member.email }}">{{ member.email }}</a></td>
+	</tr>
 	{% endfor %}
-		<tfoot>
-			<th>Totale</th>
-			<td colspan="2">{{ members|length }} soci</td>
-		</tfoot>
-	</table>
-	
-	<h2>Altri soci</h2>
+	<tfoot>
+		<th colspan="1">Totale</th>
+		<td colspan="2">{{ members|length }} soci attivi</td>
+	</tfoot>
+</table>
+
+<h2>Altri soci</h2>
+<table class="inactive-members">
+	<tr>
+		<th>Nome</th>
+		<th>Indirizzo</th>
+		<th>Email</th>
+		<th></th>
+	</tr>
+	{% for member in inactive %}
+	<tr>
+		<td><a href="{% url edit_member member_id=member.id %}">{{ member.first_name }} {{ member.last_name}}</a></td>
+		<td>{{ member.address }}</td>
+		<td><a href="mailto:{{ member.email }}">{{ member.email }}</a></td>
+		<td><a class="button small" href="{{ member.get_renew_url }}?next=list"><span>Rinnova</span></a></td>
+	</tr>
+	{% endfor %}
+	<tfoot>
+		<th colspan="1">Totale</th>
+		<td colspan="3">{{ members|length }} soci inattivi</td>
+	</tfoot>
+</table>
+
+
 {% endblock %}

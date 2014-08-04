@@ -1,6 +1,6 @@
 {% extends "admin.html" %}
 
-{% load menu_tags cms_tags sekizai_tags %}
+{% load menu_tags cms_tags sekizai_tags qrcode %}
 
 {% block adminclass %}edit-member{% endblock %}
 
@@ -8,12 +8,11 @@
 
 {% addtoblock "js" %}<script src="{{ STATIC_URL }}scripts/forms.js"></script>{% endaddtoblock %}
 
-
 <form action="" method="post" accept-charset="utf-8" class="edit-member">
 	{% csrf_token %}
 
-	{{ form.errors }}
-	{{ form.non_field_errors }}
+	{{ edit_form.errors }}
+	{{ edit_form.non_field_errors }}
 
     <h2>Dati generali</h2>
 
@@ -151,6 +150,14 @@
 	<p><em>{{ member.first_name }}</em> non è attualmente iscritto/a alla mailing list oppure non ha ancora confermato l'iscrizione.</p>
 	{% endif %}
 	</form>
+</section>
+
+<section class="qrcode">
+    <h2>Codice QR</h2>
+
+    {{ member.get_renew_url|qrcode:'150x150' }}
+
+    <a href="{{ member.get_renew_url }}">Rinnova</a>
 </section>
 
 <section class="delete-member">

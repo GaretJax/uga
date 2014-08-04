@@ -3,47 +3,50 @@
 {% load menu_tags cms_tags %}
 
 {% block content %}
-	<aside class="sidebar">
-		<nav class="secondary-navigation">
-			<ul>
-				{% show_menu 1 100 0 1 %}
-			</ul>
-		</nav>
-
-		{% placeholder "sidebar-widgets" inherit %}
-
-		<div class="twitterbox">
-			<p>UGA, Unica. Precisa. Puntuale. Ticinese. <a href="#">#slogan_uga</a></p>
-		</div>
-	</aside>
-	
-	{% if messages %}
-	<section class="messages content">
+<aside class="sidebar">
+	{% block sidebar %}
+	<nav class="secondary-navigation">
 		<ul>
-			{% for message in messages %}
-			<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|safe }}</li>
-			{% endfor %}
+			{% show_menu 1 100 0 1 %}
 		</ul>
-	</section>
-	{% endif %}
+	</nav>
 
-	<section class="main content">
-		<h1>{% page_attribute "page_title" %}</h1>
-		{% ifnotequal request.current_page.parent_id None  %}
+	{% placeholder "sidebar-widgets" inherit %}
+
+	<div class="twitterbox">
+		<p>UGA, Unica. Precisa. Puntuale. Ticinese. <a href="#">#slogan_uga</a></p>
+	</div>
+	{% endblock %}
+</aside>
+
+{% if messages %}
+<section class="messages content">
+	<ul>
+		{% for message in messages %}
+		<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|safe }}</li>
+		{% endfor %}
+	</ul>
+</section>
+{% endif %}
+
+<section class="main content">
+	<h1>{% block page_title %}{% page_attribute "page_title" %}{% endblock %}</h1>
+	{% block breadcrumbs %}
+	{% ifnotequal request.current_page.parent_id None  %}
+	<ul class="breadcrumbs">
 		{% ifequal request.current_page.get_root.reverse_id index %}
-		<ul class="breadcrumbs">
-			{% show_breadcrumb 1 "breadcrumb.html" %}
-		</ul>
+		{% show_breadcrumb 1 "breadcrumb.html" %}
 		{% else %}
-		<ul class="breadcrumbs">
-			{% show_breadcrumb 0 "breadcrumb.html" %}
-		</ul>
+		{% show_breadcrumb 0 "breadcrumb.html" %}
 		{% endifequal %}
-		{% endifnotequal %}
-        <hr />
-        
-        {% block main-content %}
-		{% placeholder "main-content" %}
-        {% endblock %}
-	</section>
+		{% block additional_breadcrumbs %}{% endblock %}
+	</ul>
+	{% endifnotequal %}
+	{% endblock %}
+	<hr />
+
+	{% block main-content %}
+	{% placeholder "main-content" %}
+	{% endblock %}
+</section>
 {% endblock %}

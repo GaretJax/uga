@@ -1,0 +1,9 @@
+{% load i18n %}
+
+<nav class="secondary-navigation">
+<ul>
+{% for d in dates reversed %}
+	<li><a href="{% url blog_archive_month year=d|date:"Y",month=d|date:"m" %}">{{ d|date:"F Y"|capfirst }}</a></li>
+{% endfor %}
+</ul>
+</nav>
